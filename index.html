@@ -1,0 +1,1507 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portofolio Digital - Claudia Simon</title>
+
+    <!-- Google Fonts: Outfit & Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- FontAwesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Outfit"', '"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#fdf2f8',
+                            100: '#fce7f3',
+                            500: '#ec4899',
+                            600: '#db2777',
+                            700: '#be185d',
+                            900: '#831843',
+                        },
+                        bubble: {
+                            light: '#fff5f7',
+                            card: '#ffffff',
+                            darkCard: '#1e293b',
+                            darkBg: '#0f172a'
+                        }
+                    },
+                    borderRadius: {
+                        '4xl': '2rem',
+                        '5xl': '2.5rem',
+                    },
+                    boxShadow: {
+                        'bubble': '0 20px 40px -15px rgba(219, 39, 119, 0.15)',
+                        'bubble-hover': '0 30px 60px -12px rgba(219, 39, 119, 0.25)',
+                        'glow': '0 0 25px rgba(236, 72, 153, 0.35)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .glass-nav {
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+
+        .bubble-badge {
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .bubble-badge:hover {
+            transform: translateY(-2px);
+        }
+
+        .project-card {
+            transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+        }
+
+        /* Rich Text Editor Styling */
+        .rte-editor {
+            min-height: 120px;
+            outline: none;
+        }
+        .rte-editor:focus {
+            box-shadow: 0 0 0 2px rgba(219, 39, 119, 0.2);
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 9999px;
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: #334155;
+        }
+    </style>
+</head>
+<body class="bg-bubble-light text-slate-800 dark:bg-bubble-darkBg dark:text-slate-100 antialiased selection:bg-brand-500 selection:text-white">
+
+    <!-- Header & Navigation -->
+    <header class="fixed top-0 left-0 right-0 z-40 px-4 py-3 sm:px-6">
+        <nav class="max-w-6xl mx-auto glass-nav bg-white/80 dark:bg-slate-900/80 border border-slate-200/60 dark:border-slate-800/80 rounded-full px-5 py-3 flex items-center justify-between shadow-sm">
+            <!-- Brand Logo -->
+            <a href="#hero" class="flex items-center gap-2.5 group">
+                <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-brand-600 to-rose-400 text-white flex items-center justify-center font-bold text-lg shadow-md group-hover:scale-105 transition-transform" id="navLogoBadge">
+                    CS
+                </div>
+                <span class="font-bold text-xl tracking-tight text-slate-900 dark:text-white" id="navLogoText">
+                    Claudia Simon<span class="text-brand-600 dark:text-brand-500">.portfolio</span>
+                </span>
+            </a>
+
+            <!-- Desktop Navigation Menu -->
+            <div class="hidden md:flex items-center space-x-1 font-medium text-sm text-slate-600 dark:text-slate-300">
+                <a href="#hero" class="px-4 py-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-brand-600 dark:hover:text-brand-400 transition">Beranda</a>
+                <a href="#projects" class="px-4 py-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-brand-600 dark:hover:text-brand-400 transition">Project</a>
+                <a href="#skills" class="px-4 py-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-brand-600 dark:hover:text-brand-400 transition">Keahlian</a>
+                <a href="#experience" class="px-4 py-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-brand-600 dark:hover:text-brand-400 transition">Pengalaman</a>
+                <a href="#contact" class="px-4 py-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-brand-600 dark:hover:text-brand-400 transition">Kontak</a>
+            </div>
+
+            <!-- Right Nav Actions -->
+            <div class="flex items-center gap-2">
+                <!-- Dark Mode Toggle Button -->
+                <button id="themeToggleBtn" aria-label="Toggle Dark Mode" class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center transition focus:outline-none">
+                    <i id="themeIcon" class="fa-solid fa-moon text-base"></i>
+                </button>
+
+                <!-- Admin Access Button Header -->
+                <button onclick="openAdminModal()" class="px-4 py-2 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-bold hover:bg-brand-50 hover:text-brand-600 dark:hover:bg-brand-900/30 transition flex items-center gap-1.5 border border-slate-200 dark:border-slate-700">
+                    <i class="fa-solid fa-user-gear text-brand-500"></i>
+                    <span class="hidden sm:inline">Admin</span>
+                </button>
+
+                <!-- CTA Button -->
+                <a href="#contact" class="hidden sm:inline-flex items-center justify-center px-5 py-2.5 rounded-full bg-slate-900 text-white dark:bg-white dark:text-slate-900 text-sm font-semibold hover:bg-brand-600 dark:hover:bg-brand-500 dark:hover:text-white transition shadow-sm hover:shadow-md">
+                    Hubungi Saya
+                </a>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobileMenuBtn" onclick="toggleMobileMenu()" aria-label="Open Navigation Menu" class="md:hidden w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 flex items-center justify-center focus:outline-none">
+                    <i id="mobileMenuIcon" class="fa-solid fa-bars text-lg"></i>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Mobile Menu Drawer -->
+        <div id="mobileMenu" class="hidden md:hidden max-w-6xl mx-auto mt-2 glass-nav bg-white/95 dark:bg-slate-900/95 border border-slate-200/80 dark:border-slate-800 rounded-3xl p-5 shadow-xl transition-all">
+            <div class="flex flex-col space-y-2 font-medium text-slate-700 dark:text-slate-200">
+                <a href="#hero" onclick="toggleMobileMenu()" class="mobile-nav-link px-4 py-3 rounded-2xl hover:bg-slate-100 dark:hover:bg-slate-800">Beranda</a>
+                <a href="#projects" onclick="toggleMobileMenu()" class="mobile-nav-link px-4 py-3 rounded-2xl hover:bg-slate-100 dark:hover:bg-slate-800">Project Terkini</a>
+                <a href="#skills" onclick="toggleMobileMenu()" class="mobile-nav-link px-4 py-3 rounded-2xl hover:bg-slate-100 dark:hover:bg-slate-800">Keahlian & Stack</a>
+                <a href="#experience" onclick="toggleMobileMenu()" class="mobile-nav-link px-4 py-3 rounded-2xl hover:bg-slate-100 dark:hover:bg-slate-800">Pengalaman Kerja</a>
+                <a href="#contact" onclick="toggleMobileMenu()" class="mobile-nav-link px-4 py-3 rounded-2xl hover:bg-slate-100 dark:hover:bg-slate-800">Kontak Saya</a>
+                <button onclick="toggleMobileMenu(); openAdminModal();" class="w-full text-left px-4 py-3 rounded-2xl bg-slate-100 dark:bg-slate-800 text-brand-600 font-bold flex items-center gap-2">
+                    <i class="fa-solid fa-lock text-sm"></i> Panel Admin / Kelola Website
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero" class="pt-32 pb-20 px-4 sm:px-6 max-w-6xl mx-auto min-h-screen flex flex-col justify-center">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            
+            <!-- Left Column: Intro Text -->
+            <div class="lg:col-span-7 text-center lg:text-left space-y-6">
+                
+                <!-- Availability Badge -->
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-50 dark:bg-brand-900/30 border border-brand-100 dark:border-brand-700/50 text-brand-700 dark:text-brand-300 text-xs sm:text-sm font-semibold tracking-wide shadow-sm" id="displayAvailability">
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span>Tersedia Untuk Freelance & Full-time Project</span>
+                </div>
+
+                <!-- Main Heading (Rich HTML Rendered) -->
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.15]" id="displayHeadline">
+                    Mewujudkan Konsep Arsitektur & Ruang <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 via-rose-500 to-purple-600">Menjadi Karya Nyata.</span>
+                </h1>
+
+                <!-- Bio Subtitle (Rich HTML Rendered) -->
+                <div class="text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed" id="displayBio">
+                    Halo! Saya <strong>Claudia Simon</strong>, seorang <strong>Arsitek Designer & Spatial Specialist</strong> yang berfokus pada perancangan hunian modern, interior fungsional, dan visualisasi 3D berestetika tinggi.
+                </div>
+
+                <!-- CTA Action Buttons -->
+                <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+                    <a href="#projects" class="w-full sm:w-auto px-8 py-4 rounded-full bg-brand-600 hover:bg-brand-700 text-white font-semibold shadow-bubble hover:shadow-bubble-hover hover:-translate-y-0.5 transition-all text-center flex items-center justify-center gap-2">
+                        <span>Jelajahi Project</span>
+                        <i class="fa-solid fa-arrow-down-long text-sm"></i>
+                    </a>
+                    <button onclick="copyEmailToClipboard()" class="w-full sm:w-auto px-8 py-4 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 font-semibold hover:bg-slate-50 dark:hover:bg-slate-700/80 transition-all text-center flex items-center justify-center gap-2 shadow-sm">
+                        <i class="fa-regular fa-copy text-brand-500"></i>
+                        <span id="copyEmailText">Salin Email Saya</span>
+                    </button>
+                </div>
+
+                <!-- Fast Stats Counter Banner -->
+                <div class="pt-8 border-t border-slate-200/70 dark:border-slate-800 grid grid-cols-3 gap-4 text-center lg:text-left" id="displayStats">
+                    <div>
+                        <div class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white" id="stat1Val">15+</div>
+                        <div class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 font-medium" id="stat1Label">Project Selesai</div>
+                    </div>
+                    <div>
+                        <div class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white" id="stat2Val">3+</div>
+                        <div class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 font-medium" id="stat2Label">Tahun Pengalaman</div>
+                    </div>
+                    <div>
+                        <div class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white" id="stat3Val">100%</div>
+                        <div class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 font-medium" id="stat3Label">Kepuasan Klien</div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Right Column: Card Profile Avatar -->
+            <div class="lg:col-span-5 flex justify-center">
+                <div class="relative w-full max-w-md">
+                    <!-- Glow Backdrop -->
+                    <div class="absolute -inset-1 bg-gradient-to-r from-brand-600 to-purple-600 rounded-5xl blur-2xl opacity-30 dark:opacity-40 animate-pulse"></div>
+                    
+                    <!-- Profile Card Container -->
+                    <div class="relative bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700 rounded-5xl p-6 sm:p-8 shadow-2xl space-y-6">
+                        
+                        <!-- Avatar & Status -->
+                        <div class="relative rounded-4xl overflow-hidden bg-gradient-to-b from-brand-100 to-rose-50 dark:from-slate-700 dark:to-slate-800 p-4 border border-slate-100 dark:border-slate-700 text-center">
+                            <img id="displayAvatar" src="https://static.vecteezy.com/system/resources/thumbnails/054/044/388/small/a-detailed-image-of-a-brown-chicken-standing-on-a-transparent-background-png.png" alt="Claudia Simon Avatar" class="w-44 h-44 sm:w-52 sm:h-52 mx-auto rounded-3xl object-cover shadow-lg hover:scale-105 transition duration-500">
+                        </div>
+
+                        <!-- Card Info -->
+                        <div class="space-y-3 text-center">
+                            <h3 class="text-2xl font-bold text-slate-900 dark:text-white" id="displayProfileName">Claudia Simon</h3>
+                            <p class="text-sm text-slate-500 dark:text-slate-400" id="displayProfileRole">Arsitek Designer & Spatial Planner</p>
+                            
+                            <!-- Quick Skill Pills -->
+                            <div class="flex flex-wrap justify-center gap-1.5 pt-2" id="displayProfileTags">
+                                <span class="px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs font-semibold">AutoCAD</span>
+                                <span class="px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs font-semibold">SketchUp</span>
+                                <span class="px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs font-semibold">Revit</span>
+                                <span class="px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs font-semibold">V-Ray 3D</span>
+                            </div>
+                        </div>
+
+                        <!-- Social Handles -->
+                        <div class="flex justify-center items-center gap-3 pt-2" id="displaySocials">
+                            <a id="displayGithub" href="https://github.com" target="_blank" rel="noopener" aria-label="Github Profile" class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-700 hover:bg-brand-600 hover:text-white dark:hover:bg-brand-500 text-slate-600 dark:text-slate-300 flex items-center justify-center transition">
+                                <i class="fa-brands fa-github text-lg"></i>
+                            </a>
+                            <a id="displayLinkedin" href="https://linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn Profile" class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-700 hover:bg-brand-600 hover:text-white dark:hover:bg-brand-500 text-slate-600 dark:text-slate-300 flex items-center justify-center transition">
+                                <i class="fa-brands fa-linkedin-in text-lg"></i>
+                            </a>
+                            <a id="displayDribbble" href="https://dribbble.com" target="_blank" rel="noopener" aria-label="Dribbble Profile" class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-700 hover:bg-brand-600 hover:text-white dark:hover:bg-brand-500 text-slate-600 dark:text-slate-300 flex items-center justify-center transition">
+                                <i class="fa-brands fa-dribbble text-lg"></i>
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 px-4 sm:px-6 max-w-6xl mx-auto">
+        <div class="text-center space-y-4 max-w-2xl mx-auto mb-12">
+            <span class="px-4 py-1.5 rounded-full bg-brand-50 dark:bg-brand-900/40 text-brand-600 dark:text-brand-300 font-bold text-xs tracking-wider uppercase">
+                Portofolio & Karya
+            </span>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                Project Pilihan & Hasil Kerja Strategis
+            </h2>
+            <p class="text-slate-600 dark:text-slate-300 text-sm sm:text-base">
+                Setiap proyek dirancang dengan cermat untuk memberikan performa tinggi, tampilan menarik, dan solusi efektif.
+            </p>
+        </div>
+
+        <!-- Filter Controls Bar -->
+        <div class="flex flex-col md:flex-row items-center justify-between gap-4 mb-10 bg-white dark:bg-slate-800 p-3 sm:p-4 rounded-3xl border border-slate-200/80 dark:border-slate-700 shadow-sm">
+            <div class="flex flex-wrap items-center gap-1.5 w-full md:w-auto justify-center md:justify-start" id="categoryFilters">
+                <button onclick="filterProjects('all')" class="filter-btn active px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition bg-brand-600 text-white shadow-sm" data-category="all">
+                    Semua
+                </button>
+                <button onclick="filterProjects('architecture')" class="filter-btn px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600" data-category="architecture">
+                    Arsitektur
+                </button>
+                <button onclick="filterProjects('interior')" class="filter-btn px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600" data-category="interior">
+                    Interior
+                </button>
+                <button onclick="filterProjects('3d')" class="filter-btn px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600" data-category="3d">
+                    3D Visualisasi
+                </button>
+            </div>
+
+            <!-- Search Input -->
+            <div class="relative w-full md:w-64">
+                <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+                <input type="text" id="searchInput" onkeyup="searchProjects()" placeholder="Cari nama project / tech..." class="w-full pl-10 pr-4 py-2 rounded-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs sm:text-sm focus:outline-none focus:border-brand-500 dark:text-white transition">
+            </div>
+        </div>
+
+        <!-- Projects Grid Layout -->
+        <div id="projectsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Dynamically populated via JS state -->
+        </div>
+
+        <div id="noResults" class="hidden text-center py-16 space-y-3">
+            <div class="w-16 h-16 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-400 mx-auto flex items-center justify-center text-2xl">
+                <i class="fa-solid fa-box-open"></i>
+            </div>
+            <h3 class="text-lg font-bold text-slate-800 dark:text-white">Project Tidak Ditemukan</h3>
+            <p class="text-sm text-slate-500 dark:text-slate-400">Coba gunakan kata kunci pencarian lain atau pilih kategori lain.</p>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 px-4 sm:px-6 bg-slate-100/70 dark:bg-slate-900/50">
+        <div class="max-w-6xl mx-auto space-y-12">
+            <div class="text-center space-y-3 max-w-2xl mx-auto">
+                <span class="px-4 py-1.5 rounded-full bg-indigo-100 dark:bg-indigo-900/40 text-brand-600 dark:text-brand-300 font-bold text-xs tracking-wider uppercase">
+                    Keahlian Utama
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                    Teknologi & Tools Yang Digunakan
+                </h2>
+                <p class="text-slate-600 dark:text-slate-300 text-sm sm:text-base">
+                    Menggunakan teknologi terkini untuk memastikan performa tinggi dan pengalaman pengguna yang luar biasa.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4" id="skillsGrid">
+                <!-- Dynamically Rendered Skills -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="py-20 px-4 sm:px-6 max-w-4xl mx-auto">
+        <div class="text-center space-y-3 mb-16">
+            <span class="px-4 py-1.5 rounded-full bg-purple-100 dark:bg-purple-900/40 text-purple-600 dark:text-purple-300 font-bold text-xs tracking-wider uppercase">
+                Jejak Langkah
+            </span>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                Pengalaman Kerja & Karir
+            </h2>
+        </div>
+
+        <div class="relative border-l-2 border-brand-200 dark:border-slate-700 ml-4 sm:ml-8 space-y-10" id="experienceTimeline">
+            <!-- Dynamically Rendered Experiences -->
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 px-4 sm:px-6 max-w-6xl mx-auto">
+        <div class="bg-gradient-to-br from-brand-600 to-rose-700 rounded-5xl p-8 sm:p-12 text-white relative overflow-hidden shadow-2xl">
+            <div class="absolute top-0 right-0 w-80 h-80 bg-white/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute bottom-0 left-0 w-64 h-64 bg-purple-500/20 rounded-full blur-2xl pointer-events-none"></div>
+
+            <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                <div class="lg:col-span-5 space-y-6">
+                    <span class="px-4 py-1.5 rounded-full bg-white/20 text-white font-bold text-xs tracking-wider uppercase backdrop-blur-md">
+                        Mari Berdiskusi
+                    </span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">
+                        Punya Proyek Menarik? Mari Bekerja Sama!
+                    </h2>
+                    <p class="text-rose-100 text-sm sm:text-base leading-relaxed">
+                        Saya selalu terbuka untuk mendiskusikan ide baru, proyek impian Anda, atau kesempatan kolaborasi karir.
+                    </p>
+
+                    <div class="space-y-4 pt-4">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-2xl bg-white/10 backdrop-blur-md flex items-center justify-center text-xl">
+                                <i class="fa-solid fa-envelope"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-rose-200">Email Langsung</p>
+                                <p class="font-bold text-sm sm:text-base" id="displayContactEmail">claudia.dev@example.com</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-2xl bg-white/10 backdrop-blur-md flex items-center justify-center text-xl">
+                                <i class="fa-brands fa-whatsapp"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-rose-200">WhatsApp / Telepon</p>
+                                <p class="font-bold text-sm sm:text-base" id="displayContactPhone">+62 812-3456-7890</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-7 bg-white dark:bg-slate-900 rounded-4xl p-6 sm:p-8 text-slate-900 dark:text-white shadow-xl border border-white/20">
+                    <form id="contactForm" onsubmit="handleFormSubmit(event)" class="space-y-4">
+                        <div>
+                            <label for="formName" class="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5">Nama Lengkap</label>
+                            <input type="text" id="formName" required placeholder="Contoh: Budi Santoso" class="w-full px-4 py-3 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm focus:outline-none focus:border-brand-500 transition">
+                        </div>
+
+                        <div>
+                            <label for="formEmail" class="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5">Email Anda</label>
+                            <input type="email" id="formEmail" required placeholder="budi@example.com" class="w-full px-4 py-3 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm focus:outline-none focus:border-brand-500 transition">
+                        </div>
+
+                        <div>
+                            <label for="formMessage" class="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5">Pesan / Detail Proyek</label>
+                            <textarea id="formMessage" rows="4" required placeholder="Jelaskan kebutuhan proyek atau pertanyaan Anda..." class="w-full px-4 py-3 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm focus:outline-none focus:border-brand-500 transition resize-none"></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full py-4 rounded-2xl bg-brand-600 hover:bg-brand-700 text-white font-bold text-sm shadow-md transition flex items-center justify-center gap-2">
+                            <span>Kirim Pesan Sekarang</span>
+                            <i class="fa-solid fa-paper-plane text-xs"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-10 px-4 sm:px-6 border-t border-slate-200/80 dark:border-slate-800 text-center space-y-4 text-xs sm:text-sm text-slate-500 dark:text-slate-400">
+        <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p id="displayFooterText">© 2026 Claudia Simon. Dibuat dengan presisi & gaya modern.</p>
+            <div class="flex items-center space-x-4">
+                <a href="#hero" class="hover:text-brand-600 transition">Beranda</a>
+                <a href="#projects" class="hover:text-brand-600 transition">Project</a>
+                <button onclick="openAdminModal()" class="hover:text-brand-600 transition underline">Admin Login</button>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Quick Admin Toggle Floating Button -->
+    <button id="floatingAdminBtn" onclick="openAdminModal()" title="Buka Admin Panel" class="fixed bottom-6 left-6 z-40 w-12 h-12 rounded-full bg-slate-900 text-white dark:bg-white dark:text-slate-900 shadow-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition group">
+        <i class="fa-solid fa-screwdriver-wrench text-base text-brand-500"></i>
+        <span id="floatingAdminBadge" class="hidden absolute -top-1 -right-1 w-4 h-4 rounded-full bg-emerald-500 border-2 border-white dark:border-slate-900 animate-pulse"></span>
+    </button>
+
+    <!-- Project Detail Modal -->
+    <div id="projectModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm transition-opacity">
+        <div class="bg-white dark:bg-slate-800 rounded-5xl max-w-2xl w-full p-6 sm:p-8 space-y-6 max-h-[90vh] overflow-y-auto border border-slate-200 dark:border-slate-700 shadow-2xl relative">
+            <button onclick="closeProjectModal()" class="absolute top-6 right-6 w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-300 flex items-center justify-center hover:bg-slate-200 transition">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <div id="modalBody" class="space-y-4"></div>
+        </div>
+    </div>
+
+    <!-- Notification Toast Element -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 hidden bg-slate-900 dark:bg-white text-white dark:text-slate-900 px-6 py-4 rounded-2xl shadow-2xl text-xs sm:text-sm font-semibold flex items-center gap-3 transition">
+        <div id="toastIcon" class="w-7 h-7 rounded-full bg-emerald-500/20 text-emerald-400 dark:text-emerald-600 flex items-center justify-center">
+            <i class="fa-solid fa-check text-sm"></i>
+        </div>
+        <span id="toastMessage">Perubahan berhasil disimpan!</span>
+    </div>
+
+    <!-- Admin Overlay (Login + Panel) -->
+    <div id="adminOverlay" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-md overflow-y-auto">
+        
+        <!-- Login Form Screen -->
+        <div id="adminLoginScreen" class="min-h-screen flex items-center justify-center p-4">
+            <div class="bg-white dark:bg-slate-900 rounded-5xl p-8 max-w-md w-full border border-slate-200 dark:border-slate-800 shadow-2xl relative space-y-6">
+                <button onclick="closeAdminModal()" class="absolute top-6 right-6 w-9 h-9 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 flex items-center justify-center hover:bg-slate-200 transition">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+
+                <div class="text-center space-y-2">
+                    <div class="w-14 h-14 rounded-3xl bg-brand-50 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400 flex items-center justify-center mx-auto text-2xl font-bold shadow-sm">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <h2 class="text-2xl font-extrabold text-slate-900 dark:text-white">Admin Authentication</h2>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Masukkan kredensial admin untuk mengelola website</p>
+                </div>
+
+                <form onsubmit="handleAdminLogin(event)" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">Username</label>
+                        <input type="text" id="loginUsername" required placeholder="Username admin..." class="w-full px-4 py-3 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm focus:outline-none focus:border-brand-500 transition dark:text-white">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">Password</label>
+                        <input type="password" id="loginPassword" required placeholder="••••••••" class="w-full px-4 py-3 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm focus:outline-none focus:border-brand-500 transition dark:text-white">
+                    </div>
+                    
+                    <button type="submit" class="w-full py-3.5 rounded-2xl bg-brand-600 hover:bg-brand-700 text-white font-bold text-sm shadow-md transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-right-to-bracket text-xs"></i> Masuk Admin Panel
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Fullscreen Admin Dashboard Window -->
+        <div id="adminDashboardScreen" class="hidden min-h-screen bg-slate-900 text-slate-100 flex flex-col">
+            
+            <!-- Admin Dashboard Header -->
+            <header class="bg-slate-800/90 border-b border-slate-700/80 px-6 py-4 flex items-center justify-between sticky top-0 z-20 backdrop-blur-md">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-2xl bg-brand-600 text-white flex items-center justify-center font-bold text-sm">
+                        <i class="fa-solid fa-sliders"></i>
+                    </div>
+                    <div>
+                        <h1 class="font-bold text-base text-white">Panel Pengelolaan Portofolio</h1>
+                        <p class="text-xs text-slate-400">Kelola Hero, Project, Skills, & Pesan Kontak</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-3">
+                    <span class="text-xs bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-3 py-1 rounded-full font-semibold hidden sm:inline">
+                        <i class="fa-solid fa-circle text-[8px] mr-1"></i> Sesi Admin Aktif
+                    </span>
+                    <button onclick="closeAdminModal()" class="px-4 py-2 rounded-2xl bg-slate-700 hover:bg-slate-600 text-white text-xs font-bold transition flex items-center gap-2" title="Tutup modal & lihat pratinjau situs">
+                        <i class="fa-solid fa-eye text-brand-400"></i>
+                        <span>Lihat Web Utama</span>
+                    </button>
+                    <button onclick="logoutAdmin()" class="px-4 py-2 rounded-2xl bg-rose-500/20 text-rose-300 hover:bg-rose-500 hover:text-white text-xs font-bold transition flex items-center gap-1.5" title="Keluar dari Admin Panel">
+                        <i class="fa-solid fa-power-off"></i> Keluar
+                    </button>
+                </div>
+            </header>
+
+            <!-- Admin Main Layout Body -->
+            <div class="flex-1 flex flex-col md:flex-row overflow-hidden">
+                
+                <!-- Admin Sidebar Navigation -->
+                <aside class="w-full md:w-64 bg-slate-800/50 border-r border-slate-800 p-4 space-y-1">
+                    <button onclick="switchAdminTab('hero')" id="tabBtn-hero" class="admin-tab-btn w-full px-4 py-3 rounded-2xl font-semibold text-xs text-left flex items-center gap-3 transition bg-brand-600 text-white">
+                        <i class="fa-solid fa-user-astronaut text-base"></i> Hero & Profile
+                    </button>
+                    <button onclick="switchAdminTab('projects')" id="tabBtn-projects" class="admin-tab-btn w-full px-4 py-3 rounded-2xl font-semibold text-xs text-left flex items-center gap-3 transition text-slate-400 hover:bg-slate-800 hover:text-white">
+                        <i class="fa-solid fa-cubes text-base"></i> Kelola Projects
+                    </button>
+                    <button onclick="switchAdminTab('messages')" id="tabBtn-messages" class="admin-tab-btn w-full px-4 py-3 rounded-2xl font-semibold text-xs text-left flex items-center justify-between transition text-slate-400 hover:bg-slate-800 hover:text-white">
+                        <span class="flex items-center gap-3"><i class="fa-solid fa-inbox text-base"></i> Pesan Masuk</span>
+                        <span class="px-2 py-0.5 rounded-full bg-brand-500 text-white text-[10px]" id="adminBadgeMsgCount">0</span>
+                    </button>
+                    <button onclick="switchAdminTab('security')" id="tabBtn-security" class="admin-tab-btn w-full px-4 py-3 rounded-2xl font-semibold text-xs text-left flex items-center gap-3 transition text-slate-400 hover:bg-slate-800 hover:text-white">
+                        <i class="fa-solid fa-key text-base"></i> Keamanan Login
+                    </button>
+                </aside>
+
+                <!-- Admin Tab Content Area -->
+                <main class="flex-1 p-6 overflow-y-auto space-y-8 bg-slate-900">
+                    
+                    <!-- TAB 1: HERO & PROFILE EDITOR -->
+                    <div id="adminTab-hero" class="admin-tab-content space-y-6">
+                        <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+                            <div>
+                                <h2 class="text-xl font-bold text-white">Edit Profile & Hero Section</h2>
+                                <p class="text-xs text-slate-400">Perbarui headline, deskripsi bio, foto avatar, dan informasi statistik.</p>
+                            </div>
+                            <button onclick="saveHeroChanges()" id="btnSaveHero" class="px-6 py-3 rounded-2xl bg-brand-600 hover:bg-brand-500 text-white font-bold text-xs shadow-md transition flex items-center gap-2">
+                                <i class="fa-solid fa-floppy-disk"></i>
+                                <span>Simpan Perubahan Hero & Profile</span>
+                            </button>
+                        </div>
+
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                            
+                            <!-- Rich Text Headline Editor -->
+                            <div class="bg-slate-800 p-5 rounded-3xl border border-slate-700/60 space-y-3">
+                                <label class="block text-xs font-bold uppercase tracking-wider text-slate-300">
+                                    Headline Utama (Rich Text Editor)
+                                </label>
+
+                                <!-- Formatting Toolbar -->
+                                <div class="flex flex-wrap items-center gap-1.5 p-2 bg-slate-900 rounded-2xl border border-slate-700">
+                                    <button onclick="execRteCommand('headlineEditor', 'bold')" title="Bold" class="px-2.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold"><b>B</b></button>
+                                    <button onclick="execRteCommand('headlineEditor', 'italic')" title="Italic" class="px-2.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs italic"><i>I</i></button>
+                                    <button onclick="execRteCommand('headlineEditor', 'underline')" title="Underline" class="px-2.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs underline"><u>U</u></button>
+                                    <button onclick="applyRteGradient('headlineEditor')" title="Teks Highlight Pink Gradient" class="px-3 py-1.5 rounded-xl bg-gradient-to-r from-brand-500 to-purple-500 text-white text-xs font-bold">Pink Gradient</button>
+                                    <button onclick="execRteCommand('headlineEditor', 'removeFormat')" title="Hapus Format" class="px-2.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-400 text-xs"><i class="fa-solid fa-eraser"></i></button>
+                                </div>
+
+                                <!-- Editable Visual Container -->
+                                <div id="headlineEditor" contenteditable="true" class="rte-editor p-4 rounded-2xl bg-slate-900 border border-slate-700 text-white text-sm leading-relaxed"></div>
+                            </div>
+
+                            <!-- Rich Text Bio Editor -->
+                            <div class="bg-slate-800 p-5 rounded-3xl border border-slate-700/60 space-y-3">
+                                <label class="block text-xs font-bold uppercase tracking-wider text-slate-300">
+                                    Deskripsi Ringkas Bio (Rich Text Editor)
+                                </label>
+
+                                <!-- Formatting Toolbar -->
+                                <div class="flex flex-wrap items-center gap-1.5 p-2 bg-slate-900 rounded-2xl border border-slate-700">
+                                    <button onclick="execRteCommand('bioEditor', 'bold')" title="Bold" class="px-2.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold"><b>B</b></button>
+                                    <button onclick="execRteCommand('bioEditor', 'italic')" title="Italic" class="px-2.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs italic"><i>I</i></button>
+                                    <button onclick="execRteCommand('bioEditor', 'underline')" title="Underline" class="px-2.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs underline"><u>U</u></button>
+                                    <button onclick="execRteCommand('bioEditor', 'removeFormat')" title="Hapus Format" class="px-2.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-400 text-xs"><i class="fa-solid fa-eraser"></i></button>
+                                </div>
+
+                                <!-- Editable Visual Container -->
+                                <div id="bioEditor" contenteditable="true" class="rte-editor p-4 rounded-2xl bg-slate-900 border border-slate-700 text-slate-200 text-sm leading-relaxed"></div>
+                            </div>
+
+                        </div>
+
+                        <!-- Profile Info Inputs -->
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div class="bg-slate-800 p-5 rounded-3xl border border-slate-700/60 space-y-3">
+                                <label class="block text-xs font-bold uppercase tracking-wider text-slate-300">Nama Lengkap</label>
+                                <input type="text" id="adminInputName" class="w-full px-4 py-2.5 rounded-2xl bg-slate-900 border border-slate-700 text-sm text-white focus:outline-none focus:border-brand-500">
+                            </div>
+                            <div class="bg-slate-800 p-5 rounded-3xl border border-slate-700/60 space-y-3">
+                                <label class="block text-xs font-bold uppercase tracking-wider text-slate-300">Role / Subtitle</label>
+                                <input type="text" id="adminInputRole" class="w-full px-4 py-2.5 rounded-2xl bg-slate-900 border border-slate-700 text-sm text-white focus:outline-none focus:border-brand-500">
+                            </div>
+                            <div class="bg-slate-800 p-5 rounded-3xl border border-slate-700/60 space-y-3">
+                                <label class="block text-xs font-bold uppercase tracking-wider text-slate-300">Teks Status Availability</label>
+                                <input type="text" id="adminInputAvailability" class="w-full px-4 py-2.5 rounded-2xl bg-slate-900 border border-slate-700 text-sm text-white focus:outline-none focus:border-brand-500">
+                            </div>
+                        </div>
+
+                        <!-- Avatar & Socials -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="bg-slate-800 p-5 rounded-3xl border border-slate-700/60 space-y-3">
+                                <label class="block text-xs font-bold uppercase tracking-wider text-slate-300">URL Gambar Avatar</label>
+                                <input type="text" id="adminInputAvatar" class="w-full px-4 py-2.5 rounded-2xl bg-slate-900 border border-slate-700 text-sm text-white focus:outline-none focus:border-brand-500">
+                            </div>
+                            <div class="bg-slate-800 p-5 rounded-3xl border border-slate-700/60 space-y-3">
+                                <label class="block text-xs font-bold uppercase tracking-wider text-slate-300">Email Kontak</label>
+                                <input type="text" id="adminInputEmail" class="w-full px-4 py-2.5 rounded-2xl bg-slate-900 border border-slate-700 text-sm text-white focus:outline-none focus:border-brand-500">
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- TAB 2: PROJECTS MANAGER -->
+                    <div id="adminTab-projects" class="admin-tab-content hidden space-y-6">
+                        <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+                            <div>
+                                <h2 class="text-xl font-bold text-white">Kelola Proyek & Foto Portofolio</h2>
+                                <p class="text-xs text-slate-400">Daftar proyek aktif dan form penambahan proyek baru dengan foto.</p>
+                            </div>
+                            <button onclick="toggleAddProjectForm()" class="px-4 py-2 rounded-2xl bg-brand-600 hover:bg-brand-500 text-white font-bold text-xs transition flex items-center gap-2">
+                                <i class="fa-solid fa-plus"></i> Tambah Proyek Baru
+                            </button>
+                        </div>
+
+                        <!-- Form Tambah Proyek Baru -->
+                        <div id="addProjectForm" class="hidden bg-slate-800 p-6 rounded-3xl border border-slate-700 space-y-4">
+                            <h3 class="text-sm font-bold text-white uppercase tracking-wider">Tambah Proyek & Foto Baru</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Judul Proyek</label>
+                                    <input type="text" id="newProjTitle" placeholder="Contoh: Modern Eco Villa" class="w-full px-4 py-2.5 rounded-2xl bg-slate-900 border border-slate-700 text-sm text-white focus:outline-none focus:border-brand-500">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Kategori</label>
+                                    <select id="newProjCategory" class="w-full px-4 py-2.5 rounded-2xl bg-slate-900 border border-slate-700 text-sm text-white focus:outline-none focus:border-brand-500">
+                                        <option value="architecture">Arsitektur</option>
+                                        <option value="interior">Interior Design</option>
+                                        <option value="3d">3D Visualisasi</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-slate-400 mb-1">URL Foto Proyek (Gambar HD / Unsplash)</label>
+                                <input type="text" id="newProjImage" placeholder="https://images.unsplash.com/photo-..." class="w-full px-4 py-2.5 rounded-2xl bg-slate-900 border border-slate-700 text-sm text-white focus:outline-none focus:border-brand-500">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Deskripsi Ringkas</label>
+                                <textarea id="newProjDesc" rows="2" placeholder="Penjelasan singkat proyek..." class="w-full px-4 py-2.5 rounded-2xl bg-slate-900 border border-slate-700 text-sm text-white focus:outline-none focus:border-brand-500 resize-none"></textarea>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Tech Stack (pisahkan dengan koma)</label>
+                                <input type="text" id="newProjTech" placeholder="React, Tailwind CSS, Node.js" class="w-full px-4 py-2.5 rounded-2xl bg-slate-900 border border-slate-700 text-sm text-white focus:outline-none focus:border-brand-500">
+                            </div>
+                            <div class="flex justify-end gap-3 pt-2">
+                                <button onclick="toggleAddProjectForm()" class="px-4 py-2 rounded-2xl bg-slate-700 text-slate-300 text-xs font-bold hover:bg-slate-600 transition">Batal</button>
+                                <button onclick="addNewProject()" class="px-5 py-2 rounded-2xl bg-brand-600 text-white text-xs font-bold hover:bg-brand-500 transition">Simpan Proyek</button>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 gap-4" id="adminProjectsList">
+                            <!-- Dynamically List Projects in Admin -->
+                        </div>
+                    </div>
+
+                    <!-- TAB 3: MESSAGES INBOX -->
+                    <div id="adminTab-messages" class="admin-tab-content hidden space-y-6">
+                        <div class="border-b border-slate-800 pb-4 flex items-center justify-between">
+                            <div>
+                                <h2 class="text-xl font-bold text-white">Pesan Masuk dari Formulir Kontak</h2>
+                                <p class="text-xs text-slate-400">Daftar pesan yang dikirimkan oleh calon klien melalui website.</p>
+                            </div>
+                            <button onclick="clearAllMessages()" class="text-xs text-rose-400 hover:underline">Hapus Semua Pesan</button>
+                        </div>
+                        <div id="adminMessagesList" class="space-y-4">
+                            <!-- Dynamic messages -->
+                        </div>
+                    </div>
+
+                    <!-- TAB 4: SECURITY & PASSWORD -->
+                    <div id="adminTab-security" class="admin-tab-content hidden space-y-6">
+                        <div class="border-b border-slate-800 pb-4">
+                            <h2 class="text-xl font-bold text-white">Pengaturan Keamanan Login</h2>
+                            <p class="text-xs text-slate-400">Ubah username dan password default admin Anda.</p>
+                        </div>
+
+                        <form onsubmit="updateAdminCredentials(event)" class="max-w-md bg-slate-800 p-6 rounded-3xl border border-slate-700/60 space-y-4">
+                            <div>
+                                <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1">Username Baru</label>
+                                <input type="text" id="newUsername" required class="w-full px-4 py-3 rounded-2xl bg-slate-900 border border-slate-700 text-sm text-white focus:outline-none focus:border-brand-500">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1">Password Baru</label>
+                                <input type="password" id="newPassword" required class="w-full px-4 py-3 rounded-2xl bg-slate-900 border border-slate-700 text-sm text-white focus:outline-none focus:border-brand-500">
+                            </div>
+                            <button type="submit" class="w-full py-3 rounded-2xl bg-brand-600 hover:bg-brand-500 text-white font-bold text-xs shadow-md transition">
+                                Update Kredensial Admin
+                            </button>
+                        </form>
+                    </div>
+
+                </main>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const defaultState = {
+            hero: {
+                headline: 'Mewujudkan Konsep Arsitektur & Ruang <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 via-rose-500 to-purple-600">Menjadi Karya Nyata.</span>',
+                bio: 'Halo! Saya <strong>Claudia Simon</strong>, seorang <strong>Arsitek Designer & Spatial Specialist</strong> yang berfokus pada perancangan hunian modern, interior fungsional, dan visualisasi 3D berestetika tinggi.',
+                name: 'Claudia Simon',
+                role: 'Arsitek Designer & Spatial Planner',
+                availability: 'Tersedia Untuk Proyek Desain Arsitektur & Interior',
+                avatar: 'https://static.vecteezy.com/system/resources/thumbnails/054/044/388/small/a-detailed-image-of-a-brown-chicken-standing-on-a-transparent-background-png.png',
+                email: 'claudia.arch@example.com',
+                phone: '+62 812-3456-7890',
+                stats: [
+                    { val: '25+', label: 'Proyek Arsitektur' },
+                    { val: '4+', label: 'Tahun Pengalaman' },
+                    { val: '100%', label: 'Kepuasan Klien' }
+                ],
+                socials: {
+                    github: 'https://github.com',
+                    linkedin: 'https://linkedin.com',
+                    dribbble: 'https://dribbble.com'
+                }
+            },
+            auth: {
+                username: 'admin',
+                password: 'admin123',
+                isLoggedIn: false
+            },
+            projects: [
+                {
+                    id: 1,
+                    title: "Modern Tropical Villa",
+                    category: "architecture",
+                    categoryLabel: "Arsitektur",
+                    badgeColor: "text-emerald-600 dark:text-emerald-400",
+                    image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=800&auto=format&fit=crop",
+                    description: "Perancangan hunian tropis modern dengan ventilasi silang alami, pencahayaan optimal, dan void terbuka.",
+                    detailDescription: "Desain villa 2 lantai berkonsep tropis modern yang mengutamakan integrasi ruang luar dan dalam, pemanfaatan cahaya alami, serta material ramah lingkungan.",
+                    features: ["Sistem Pengudaraan Alami (Cross Ventilation)", "Penggunaan Kayu Daur Ulang & Batu Alam", "Kolam Renang Overflow & Taman Vertikal", "Efisiensi Energi Hingga 30%"],
+                    tech: ["AutoCAD", "SketchUp", "Enscape", "Revit"],
+                    likes: 38,
+                    liveUrl: "#",
+                    githubUrl: "#"
+                },
+                {
+                    id: 2,
+                    title: "Minimalist Scandinavian Interior",
+                    category: "interior",
+                    categoryLabel: "Interior",
+                    badgeColor: "text-amber-600 dark:text-amber-400",
+                    image: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=800&auto=format&fit=crop",
+                    description: "Penataan ruang dalam apartemen dengan nuansa hangat skandinavia, furnitur kustom, dan palet warna netral.",
+                    detailDescription: "Desain interior apartemen tipe 2BR mengusung gaya Skandinavia minimalis. Mengoptimalkan penyimpanan tersembunyi untuk ruang terbatas.",
+                    features: ["Furnitur Built-in Kustom", "Pencahayaan LED Warm Ambient", "Pemilihan Material Bebas Toksik"],
+                    tech: ["3ds Max", "V-Ray", "Photoshop"],
+                    likes: 54,
+                    liveUrl: "#",
+                    githubUrl: "#"
+                },
+                {
+                    id: 3,
+                    title: "Commercial Office Tower Exterior",
+                    category: "architecture",
+                    categoryLabel: "Arsitektur",
+                    badgeColor: "text-emerald-600 dark:text-emerald-400",
+                    image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=800&auto=format&fit=crop",
+                    description: "Konsep façade gedung perkantoran 12 lantai dengan fasad double-skin dan efisiensi energi tinggi.",
+                    detailDescription: "Perancangan fasad arsitektur gedung perkantoran di kawasan pusat bisnis. Fasad dirancang untuk meminimalisir panas matahari langsung.",
+                    features: ["Fasad Double-skin Low-E Glass", "Integrasi Panel Surya Fasad", "Sertifikasi Green Building Level Gold"],
+                    tech: ["Revit BIM", "Rhino 3D", "Grasshopper"],
+                    likes: 29,
+                    liveUrl: "#",
+                    githubUrl: "#"
+                },
+                {
+                    id: 4,
+                    title: "3D Photorealistic Pavilion Visual",
+                    category: "3d",
+                    categoryLabel: "3D Visualisasi",
+                    badgeColor: "text-purple-600 dark:text-purple-400",
+                    image: "https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?q=80&w=800&auto=format&fit=crop",
+                    description: "Render 3D fotorealistis paviliun pameran seni kontemporer dengan simulasi pencahayaan alami presisi.",
+                    detailDescription: "Visualisasi 3D tingkat tinggi untuk paviliun publik seni. Menampilkan tekstur material, bayangan akurat, dan suasana atmosferik.",
+                    features: ["Ray-Tracing Real-time Render", "Simulasi Pencahayaan Matahari", "Atmospheric Fog & Landscape Detailing"],
+                    tech: ["Unreal Engine 5", "3ds Max", "Corona Render"],
+                    likes: 47,
+                    liveUrl: "#",
+                    githubUrl: "#"
+                },
+                {
+                    id: 5,
+                    title: "Japanese Zen Residential House",
+                    category: "architecture",
+                    categoryLabel: "Arsitektur",
+                    badgeColor: "text-emerald-600 dark:text-emerald-400",
+                    image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=800&auto=format&fit=crop",
+                    description: "Hunian keluarga bernuansa Zen Jepang yang memadukan taman inner-courtyard dan elemen shoji modern.",
+                    detailDescription: "Rumah tinggal 2 lantai dengan taman tengah (inner courtyard) yang menghadirkan ketenangan dan sirkulasi udara optimal di tengah perkotaan.",
+                    features: ["Taman Tengah Inner Courtyard", "Pintu Geser Kaca Shoji Frame", "Atap Kanopi Teritisan Lebar"],
+                    tech: ["AutoCAD", "SketchUp", "Enscape"],
+                    likes: 61,
+                    liveUrl: "#",
+                    githubUrl: "#"
+                },
+                {
+                    id: 6,
+                    title: "Boutique Coffee Shop Interior",
+                    category: "interior",
+                    categoryLabel: "Interior",
+                    badgeColor: "text-amber-600 dark:text-amber-400",
+                    image: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=800&auto=format&fit=crop",
+                    description: "Desain interior Kafe Industrial-Warm dengan material semen ekspos, bata merah, dan sentuhan kayu hangat.",
+                    detailDescription: "Perancangan interior coffee shop dengan daya tampung 60 pengunjung. Mengedepankan efisiensi alur barista dan kenyamanan pelanggan.",
+                    features: ["Meja Bar Espresso Terrazzo", "Layout Ergonomis Barista", "Pencahayaan Vintage Edison Bulb"],
+                    tech: ["SketchUp", "V-Ray", "Photoshop"],
+                    likes: 33,
+                    liveUrl: "#",
+                    githubUrl: "#"
+                },
+                {
+                    id: 7,
+                    title: "Luxury Penthouse Living Room",
+                    category: "interior",
+                    categoryLabel: "Interior",
+                    badgeColor: "text-amber-600 dark:text-amber-400",
+                    image: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=800&auto=format&fit=crop",
+                    description: "Interior penthouse mewah dengan ceiling tinggi, pencahayaan artistik, dan pemandangan skylight kota.",
+                    detailDescription: "Desain interior area ruang tamu utama penthouse dengan aksen marmer Calacatta, lampu gantung kustom, dan pemilihan sofa Italia premium.",
+                    features: ["Dinding Aksen Marmer Import", "Sistem Smart Home Lighting", "Aksen Kayu Walnut & Brass Detail"],
+                    tech: ["3ds Max", "V-Ray", "Corona Render"],
+                    likes: 42,
+                    liveUrl: "#",
+                    githubUrl: "#"
+                },
+                {
+                    id: 8,
+                    title: "Eco Resort Waterfront Cabin",
+                    category: "3d",
+                    categoryLabel: "3D Visualisasi",
+                    badgeColor: "text-purple-600 dark:text-purple-400",
+                    image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=800&auto=format&fit=crop",
+                    description: "Visualisasi 3D resor ekologis tepi danau berkonsep kabin kayu terintegrasi alam sekitarnya.",
+                    detailDescription: "Render 3D komplek kabin resort ramah lingkungan. Menampilkan pencahayaan sore hari (golden hour) dengan refleksi air yang realistis.",
+                    features: ["Visualisasi Realistic Water Shader", "Vegetasi 3D Skala Nyata", "Atmospheric Golden Hour Lighting"],
+                    tech: ["Unreal Engine 5", "Lumion", "Photoshop"],
+                    likes: 58,
+                    liveUrl: "#",
+                    githubUrl: "#"
+                },
+                {
+                    id: 9,
+                    title: "Modern Cultural Center & Art Gallery",
+                    category: "architecture",
+                    categoryLabel: "Arsitektur",
+                    badgeColor: "text-emerald-600 dark:text-emerald-400",
+                    image: "https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=800&auto=format&fit=crop",
+                    description: "Desain arsitektur pusat kebudayaan dan galeri seni publik berkonsep geometri parametrik.",
+                    detailDescription: "Gedung pusat seni dan kebudayaan publik dengan atrium terbuka multi-lantai yang memfasilitasi pameran lukisan dan seni instalasi.",
+                    features: ["Fasad Parametrik Perforated Metal", "Ruang Pameran Fleksibel", "Rooftop Amphitheater"],
+                    tech: ["Rhino 3D", "Grasshopper", "Revit BIM"],
+                    likes: 31,
+                    liveUrl: "#",
+                    githubUrl: "#"
+                }
+            ],
+            skills: [
+                { name: 'AutoCAD', tag: 'Drafting 2D/3D', icon: 'fa-solid fa-compass-drafting', color: 'text-red-500 bg-red-50 dark:bg-red-950/50' },
+                { name: 'Autodesk Revit', tag: 'BIM Modeling', icon: 'fa-solid fa-cubes', color: 'text-sky-500 bg-sky-50 dark:bg-sky-950/50' },
+                { name: 'SketchUp', tag: '3D Modeling', icon: 'fa-solid fa-shapes', color: 'text-amber-500 bg-amber-50 dark:bg-amber-950/50' },
+                { name: 'V-Ray / Enscape', tag: '3D Rendering', icon: 'fa-solid fa-wand-magic-sparkles', color: 'text-purple-500 bg-purple-50 dark:bg-purple-950/50' },
+                { name: '3ds Max', tag: 'Visualisasi 3D', icon: 'fa-solid fa-layer-group', color: 'text-teal-500 bg-teal-50 dark:bg-teal-950/50' },
+                { name: 'Photoshop', tag: 'Post-Processing', icon: 'fa-solid fa-palette', color: 'text-blue-500 bg-blue-50 dark:bg-blue-950/50' }
+            ],
+            experiences: [
+                { period: '2024 - Sekarang', title: 'Senior Architectural Designer', company: 'Studio Arsitektur & Ruang Utama', desc: 'Memimpin tim perancang konsep arsitektur hunian mewah & gedung komersial, mengkoordinasikan pemodelan BIM Revit, serta supervisi visualisasi 3D.', active: true },
+                { period: '2022 - 2024', title: 'Architect & Interior Designer', company: 'Nusantara Architecture Design', desc: 'Merancang 20+ proyek interior dan hunian tropis modern, menyusun gambar kerja DED (Detailed Engineering Design), serta presentasi visual 3D ke klien.', active: false },
+                { period: '2020 - 2022', title: 'Junior Drafter & Visualizer', company: 'Kreatif Konsultan Arsitek', desc: 'Membuat gambar denah 2D CAD, model 3D SketchUp, serta materi rendering fotorealistis untuk proposal kompetisi arsitektur.', active: false }
+            ],
+            messages: []
+        };
+
+        let appState = JSON.parse(JSON.stringify(defaultState));
+
+        window.addEventListener('DOMContentLoaded', () => {
+            if (sessionStorage.getItem('adminLoggedIn') === 'true') {
+                appState.auth.isLoggedIn = true;
+            }
+            renderAllData();
+            setupThemeToggle();
+            updateAdminFloatingBtnUI();
+        });
+
+        function renderAllData() {
+            // Render Hero & Profile Text
+            document.getElementById('displayHeadline').innerHTML = appState.hero.headline;
+            document.getElementById('displayBio').innerHTML = appState.hero.bio;
+            document.getElementById('displayProfileName').innerText = appState.hero.name;
+            document.getElementById('displayProfileRole').innerText = appState.hero.role;
+            document.getElementById('displayAvailability').querySelector('span:last-child').innerText = appState.hero.availability;
+            document.getElementById('displayAvatar').src = appState.hero.avatar;
+            document.getElementById('displayContactEmail').innerText = appState.hero.email;
+            document.getElementById('displayContactPhone').innerText = appState.hero.phone;
+            document.getElementById('displayFooterText').innerText = `© 2026 ${appState.hero.name}. Dibuat dengan presisi & gaya modern.`;
+
+            // Render Stats
+            if (appState.hero.stats.length >= 3) {
+                document.getElementById('stat1Val').innerText = appState.hero.stats[0].val;
+                document.getElementById('stat1Label').innerText = appState.hero.stats[0].label;
+                document.getElementById('stat2Val').innerText = appState.hero.stats[1].val;
+                document.getElementById('stat2Label').innerText = appState.hero.stats[1].label;
+                document.getElementById('stat3Val').innerText = appState.hero.stats[2].val;
+                document.getElementById('stat3Label').innerText = appState.hero.stats[2].label;
+            }
+
+            // Render Grids
+            renderProjectsGrid();
+            renderSkillsGrid();
+            renderExperienceTimeline();
+        }
+
+        function renderProjectsGrid() {
+            const container = document.getElementById('projectsGrid');
+            if (!container) return;
+
+            container.innerHTML = appState.projects.map(p => {
+                const techBadges = p.tech.map(t => `<span class="px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-700/80 text-[11px] font-semibold text-slate-600 dark:text-slate-300">${t}</span>`).join('');
+                
+                return `
+                    <div class="project-card group bg-white dark:bg-slate-800 rounded-4xl p-5 border border-slate-200/80 dark:border-slate-700/80 shadow-sm hover:shadow-bubble transition-all flex flex-col justify-between" data-category="${p.category}" data-title="${p.title}" data-tech="${p.tech.join(' ')}">
+                        <div class="space-y-4">
+                            <!-- Image container -->
+                            <div class="relative overflow-hidden rounded-3xl aspect-[16/10] bg-slate-100 dark:bg-slate-900">
+                                <img src="${p.image}" alt="${p.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                                <span class="absolute top-3 left-3 px-3 py-1 rounded-full bg-white/90 dark:bg-slate-900/90 text-xs font-bold ${p.badgeColor} backdrop-blur-md shadow-sm">
+                                    ${p.categoryLabel}
+                                </span>
+                            </div>
+
+                            <!-- Content -->
+                            <div class="space-y-2">
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400 transition">
+                                    ${p.title}
+                                </h3>
+                                <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 line-clamp-2 leading-relaxed">
+                                    ${p.description}
+                                </p>
+                            </div>
+
+                            <!-- Tech Badges -->
+                            <div class="flex flex-wrap gap-1.5 pt-1">
+                                ${techBadges}
+                            </div>
+                        </div>
+
+                        <!-- Card Action Bar -->
+                        <div class="pt-6 mt-4 border-t border-slate-100 dark:border-slate-700/60 flex items-center justify-between">
+                            <button onclick="openProjectModal(${p.id})" class="text-xs font-bold text-brand-600 dark:text-brand-400 hover:text-brand-700 flex items-center gap-1.5 group/link">
+                                <span>Detail Proyek</span>
+                                <i class="fa-solid fa-arrow-right text-[10px] group-hover/link:translate-x-1 transition-transform"></i>
+                            </button>
+
+                            <button onclick="likeProject(this)" class="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400 hover:text-rose-500 transition px-2 py-1 rounded-full hover:bg-rose-50 dark:hover:bg-rose-950/30">
+                                <i class="fa-regular fa-heart text-sm"></i>
+                                <span>${p.likes}</span>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function renderSkillsGrid() {
+            const container = document.getElementById('skillsGrid');
+            if (!container) return;
+
+            container.innerHTML = appState.skills.map(s => `
+                <div class="bubble-badge bg-white dark:bg-slate-800 p-4 rounded-3xl border border-slate-200/80 dark:border-slate-700/80 shadow-sm flex flex-col items-center text-center space-y-2">
+                    <div class="w-12 h-12 rounded-2xl ${s.color} flex items-center justify-center text-xl shadow-inner">
+                        <i class="${s.icon}"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-sm text-slate-900 dark:text-white">${s.name}</h4>
+                        <span class="text-[10px] text-slate-500 dark:text-slate-400 font-medium">${s.tag}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderExperienceTimeline() {
+            const container = document.getElementById('experienceTimeline');
+            if (!container) return;
+
+            container.innerHTML = appState.experiences.map((exp, idx) => `
+                <div class="relative pl-6 sm:pl-8 group">
+                    <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full border-2 border-brand-500 ${exp.active ? 'bg-brand-600 ring-4 ring-brand-100 dark:ring-brand-900/40' : 'bg-white dark:bg-slate-800'} transition-all"></div>
+                    
+                    <div class="bg-white dark:bg-slate-800 p-6 rounded-3xl border border-slate-200/80 dark:border-slate-700/80 shadow-sm space-y-2 hover:shadow-md transition">
+                        <span class="px-3 py-1 rounded-full bg-brand-50 dark:bg-brand-900/30 text-brand-600 dark:text-brand-300 font-bold text-[11px]">
+                            ${exp.period}
+                        </span>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white pt-1">${exp.title}</h3>
+                        <p class="text-xs font-semibold text-slate-500 dark:text-slate-400">${exp.company}</p>
+                        <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed pt-1">${exp.desc}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const icon = document.getElementById('mobileMenuIcon');
+            menu.classList.toggle('hidden');
+            if (menu.classList.contains('hidden')) {
+                icon.className = 'fa-solid fa-bars text-lg';
+            } else {
+                icon.className = 'fa-solid fa-xmark text-lg';
+            }
+        }
+
+        function filterProjects(category) {
+            const buttons = document.querySelectorAll('.filter-btn');
+            const cards = document.querySelectorAll('.project-card');
+            const noResults = document.getElementById('noResults');
+
+            buttons.forEach(btn => {
+                if (btn.dataset.category === category) {
+                    btn.className = 'filter-btn active px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition bg-brand-600 text-white shadow-sm';
+                } else {
+                    btn.className = 'filter-btn px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600';
+                }
+            });
+
+            let visibleCount = 0;
+            cards.forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.classList.remove('hidden');
+                    visibleCount++;
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+
+            noResults.classList.toggle('hidden', visibleCount > 0);
+        }
+
+        function searchProjects() {
+            const query = document.getElementById('searchInput').value.toLowerCase().trim();
+            const cards = document.querySelectorAll('.project-card');
+            const noResults = document.getElementById('noResults');
+            let visibleCount = 0;
+
+            cards.forEach(card => {
+                const title = card.dataset.title.toLowerCase();
+                const tech = card.dataset.tech.toLowerCase();
+
+                if (title.includes(query) || tech.includes(query)) {
+                    card.classList.remove('hidden');
+                    visibleCount++;
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+
+            noResults.classList.toggle('hidden', visibleCount > 0);
+        }
+
+        function openProjectModal(id) {
+            const data = appState.projects.find(p => p.id === id);
+            if (!data) return;
+
+            const modal = document.getElementById('projectModal');
+            const modalBody = document.getElementById('modalBody');
+
+            const techListHtml = data.tech.map(t => `<span class="px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-700 text-xs font-semibold text-slate-700 dark:text-slate-300">${t}</span>`).join('');
+            const featuresListHtml = (data.features || []).map(f => `<li class="flex items-center gap-2 text-xs sm:text-sm text-slate-600 dark:text-slate-300"><i class="fa-solid fa-check text-emerald-500"></i> ${f}</li>`).join('');
+
+            modalBody.innerHTML = `
+                <div class="space-y-4">
+                    <span class="px-3 py-1 rounded-full bg-brand-50 dark:bg-brand-900/40 text-brand-600 dark:text-brand-300 text-xs font-bold uppercase">
+                        ${data.categoryLabel}
+                    </span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">${data.title}</h2>
+                    
+                    <div class="rounded-3xl overflow-hidden aspect-video bg-slate-100 dark:bg-slate-900">
+                        <img src="${data.image}" alt="${data.title}" class="w-full h-full object-cover">
+                    </div>
+
+                    <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">${data.detailDescription || data.description}</p>
+
+                    ${featuresListHtml ? `
+                    <div class="space-y-2">
+                        <h4 class="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider">Fitur Utama</h4>
+                        <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            ${featuresListHtml}
+                        </ul>
+                    </div>
+                    ` : ''}
+
+                    <div class="space-y-2">
+                        <h4 class="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider">Tech Stack</h4>
+                        <div class="flex flex-wrap gap-2">
+                            ${techListHtml}
+                        </div>
+                    </div>
+
+                    <div class="pt-4 flex flex-col sm:flex-row gap-3">
+                        <a href="${data.liveUrl}" target="_blank" rel="noopener" class="flex-1 py-3 px-6 rounded-2xl bg-brand-600 text-white text-center font-bold text-sm hover:bg-brand-700 transition flex items-center justify-center gap-2 shadow-sm">
+                            <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i> Buka Live Demo
+                        </a>
+                        <a href="${data.githubUrl}" target="_blank" rel="noopener" class="py-3 px-6 rounded-2xl bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 text-center font-bold text-sm hover:bg-slate-200 dark:hover:bg-slate-600 transition flex items-center justify-center gap-2">
+                            <i class="fa-brands fa-github text-sm"></i> Source Code
+                        </a>
+                    </div>
+                </div>
+            `;
+
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeProjectModal() {
+            document.getElementById('projectModal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        function likeProject(btn) {
+            const icon = btn.querySelector('i');
+            const countSpan = btn.querySelector('span');
+            let currentCount = parseInt(countSpan.innerText);
+
+            if (icon.classList.contains('fa-regular')) {
+                icon.className = 'fa-solid fa-heart text-rose-500 text-sm';
+                btn.classList.add('text-rose-500');
+                countSpan.innerText = currentCount + 1;
+                showToast('Terima kasih telah menyukai project ini!', 'success');
+            } else {
+                icon.className = 'fa-regular fa-heart text-sm';
+                btn.classList.remove('text-rose-500');
+                countSpan.innerText = currentCount - 1;
+            }
+        }
+
+        function copyEmailToClipboard() {
+            const email = appState.hero.email;
+            const tempInput = document.createElement("input");
+            tempInput.value = email;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempInput);
+
+            const btnText = document.getElementById('copyEmailText');
+            btnText.innerText = "Email Tersalin!";
+            showToast("Email berhasil disalin ke clipboard!", "success");
+
+            setTimeout(() => {
+                btnText.innerText = "Salin Email Saya";
+            }, 3000);
+        }
+
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            const name = document.getElementById('formName').value;
+            const email = document.getElementById('formEmail').value;
+            const message = document.getElementById('formMessage').value;
+
+            appState.messages.unshift({
+                name,
+                email,
+                message,
+                date: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+            });
+
+            document.getElementById('contactForm').reset();
+            showToast('Terima kasih! Pesan Anda telah terkirim.', 'success');
+        }
+
+        function openAdminModal() {
+            const overlay = document.getElementById('adminOverlay');
+            overlay.classList.remove('hidden');
+
+            if (appState.auth.isLoggedIn) {
+                document.getElementById('adminLoginScreen').classList.add('hidden');
+                document.getElementById('adminDashboardScreen').classList.remove('hidden');
+                populateAdminFields();
+            } else {
+                document.getElementById('adminLoginScreen').classList.remove('hidden');
+                document.getElementById('adminDashboardScreen').classList.add('hidden');
+            }
+        }
+
+        function closeAdminModal() {
+            document.getElementById('adminOverlay').classList.add('hidden');
+        }
+
+        function handleAdminLogin(e) {
+            e.preventDefault();
+            const user = document.getElementById('loginUsername').value;
+            const pass = document.getElementById('loginPassword').value;
+
+            if (user === appState.auth.username && pass === appState.auth.password) {
+                appState.auth.isLoggedIn = true;
+                sessionStorage.setItem('adminLoggedIn', 'true');
+                document.getElementById('adminLoginScreen').classList.add('hidden');
+                document.getElementById('adminDashboardScreen').classList.remove('hidden');
+                populateAdminFields();
+                updateAdminFloatingBtnUI();
+                showToast('Login Admin Berhasil! Selamat datang.', 'success');
+            } else {
+                showToast('Username atau password salah!', 'error');
+            }
+        }
+
+        function logoutAdmin() {
+            appState.auth.isLoggedIn = false;
+            sessionStorage.removeItem('adminLoggedIn');
+            document.getElementById('adminDashboardScreen').classList.add('hidden');
+            document.getElementById('adminLoginScreen').classList.remove('hidden');
+            updateAdminFloatingBtnUI();
+            showToast('Anda telah keluar dari panel admin.', 'info');
+        }
+
+        function updateAdminFloatingBtnUI() {
+            const btn = document.getElementById('floatingAdminBtn');
+            const badge = document.getElementById('floatingAdminBadge');
+            if (!btn) return;
+
+            if (appState.auth.isLoggedIn) {
+                btn.setAttribute('title', 'Kembali ke Admin Panel (Sesi Aktif)');
+                btn.classList.add('ring-2', 'ring-brand-500', 'ring-offset-2');
+                if (badge) badge.classList.remove('hidden');
+            } else {
+                btn.setAttribute('title', 'Buka Admin Panel');
+                btn.classList.remove('ring-2', 'ring-brand-500', 'ring-offset-2');
+                if (badge) badge.classList.add('hidden');
+            }
+        }
+
+        function populateAdminFields() {
+            document.getElementById('headlineEditor').innerHTML = appState.hero.headline;
+            document.getElementById('bioEditor').innerHTML = appState.hero.bio;
+            document.getElementById('adminInputName').value = appState.hero.name;
+            document.getElementById('adminInputRole').value = appState.hero.role;
+            document.getElementById('adminInputAvailability').value = appState.hero.availability;
+            document.getElementById('adminInputAvatar').value = appState.hero.avatar;
+            document.getElementById('adminInputEmail').value = appState.hero.email;
+
+            renderAdminProjectsList();
+            renderAdminMessages();
+        }
+
+        function execRteCommand(editorId, command) {
+            document.getElementById(editorId).focus();
+            document.execCommand(command, false, null);
+        }
+
+        function applyRteGradient(editorId) {
+            const editor = document.getElementById(editorId);
+            const selection = window.getSelection();
+            if (!selection.rangeCount || selection.isCollapsed) return;
+
+            const selectedText = selection.toString();
+            const span = document.createElement("span");
+            span.className = "text-transparent bg-clip-text bg-gradient-to-r from-brand-600 via-rose-500 to-purple-600";
+            span.textContent = selectedText;
+
+            const range = selection.getRangeAt(0);
+            range.deleteContents();
+            range.insertNode(span);
+        }
+
+        function saveHeroChanges() {
+            appState.hero.headline = document.getElementById('headlineEditor').innerHTML;
+            appState.hero.bio = document.getElementById('bioEditor').innerHTML;
+            appState.hero.name = document.getElementById('adminInputName').value;
+            appState.hero.role = document.getElementById('adminInputRole').value;
+            appState.hero.availability = document.getElementById('adminInputAvailability').value;
+            appState.hero.avatar = document.getElementById('adminInputAvatar').value;
+            appState.hero.email = document.getElementById('adminInputEmail').value;
+
+            renderAllData();
+            showToast('Hero & Profile berhasil diperbarui!', 'success');
+        }
+
+        function renderAdminProjectsList() {
+            const container = document.getElementById('adminProjectsList');
+            if (!container) return;
+
+            container.innerHTML = appState.projects.map(p => `
+                <div class="bg-slate-800 p-4 rounded-2xl border border-slate-700/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                    <div class="flex items-center gap-3">
+                        <img src="${p.image}" class="w-16 h-12 rounded-xl object-cover bg-slate-900 border border-slate-700">
+                        <div>
+                            <h4 class="font-bold text-white text-sm">${p.title}</h4>
+                            <span class="text-xs text-brand-400 font-medium">${p.categoryLabel}</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-end">
+                        <span class="text-xs text-slate-400"><i class="fa-solid fa-heart text-rose-500"></i> ${p.likes} Likes</span>
+                        <button onclick="deleteProject(${p.id})" class="px-3 py-1.5 rounded-xl bg-rose-500/20 text-rose-300 hover:bg-rose-500 hover:text-white text-xs font-bold transition">
+                            <i class="fa-solid fa-trash-can"></i> Hapus
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function toggleAddProjectForm() {
+            const form = document.getElementById('addProjectForm');
+            form.classList.toggle('hidden');
+        }
+
+        function addNewProject() {
+            const title = document.getElementById('newProjTitle').value.trim();
+            const category = document.getElementById('newProjCategory').value;
+            const image = document.getElementById('newProjImage').value.trim() || 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=800&auto=format&fit=crop';
+            const desc = document.getElementById('newProjDesc').value.trim();
+            const techStr = document.getElementById('newProjTech').value.trim();
+
+            if (!title || !desc) {
+                showToast('Harap isi judul dan deskripsi proyek!', 'error');
+                return;
+            }
+
+            const categoryLabels = {
+                architecture: 'Arsitektur',
+                interior: 'Interior',
+                '3d': '3D Visualisasi'
+            };
+
+            const categoryColors = {
+                architecture: 'text-emerald-600 dark:text-emerald-400',
+                interior: 'text-amber-600 dark:text-amber-400',
+                '3d': 'text-purple-600 dark:text-purple-400'
+            };
+
+            const newProj = {
+                id: Date.now(),
+                title: title,
+                category: category,
+                categoryLabel: categoryLabels[category] || 'Arsitektur',
+                badgeColor: categoryColors[category] || 'text-emerald-600 dark:text-emerald-400',
+                image: image,
+                description: desc,
+                detailDescription: desc,
+                features: ["Perancangan Konsep Ruang Fungsional", "Visualisasi 3D & Pemodelan Presisi"],
+                tech: techStr ? techStr.split(',').map(t => t.trim()) : ["AutoCAD", "SketchUp"],
+                likes: 0,
+                liveUrl: "#",
+                githubUrl: "#"
+            };
+
+            appState.projects.unshift(newProj);
+            renderProjectsGrid();
+            renderAdminProjectsList();
+            toggleAddProjectForm();
+            
+            // Reset Form Inputs
+            document.getElementById('newProjTitle').value = '';
+            document.getElementById('newProjImage').value = '';
+            document.getElementById('newProjDesc').value = '';
+            document.getElementById('newProjTech').value = '';
+
+            showToast('Proyek arsitektur baru berhasil ditambahkan!', 'success');
+        }
+
+        function deleteProject(id) {
+            appState.projects = appState.projects.filter(p => p.id !== id);
+            renderProjectsGrid();
+            renderAdminProjectsList();
+            showToast('Proyek berhasil dihapus.', 'info');
+        }
+
+        function switchAdminTab(tabName) {
+            document.querySelectorAll('.admin-tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.admin-tab-btn').forEach(btn => {
+                btn.className = 'admin-tab-btn w-full px-4 py-3 rounded-2xl font-semibold text-xs text-left flex items-center gap-3 transition text-slate-400 hover:bg-slate-800 hover:text-white';
+            });
+
+            document.getElementById(`adminTab-${tabName}`).classList.remove('hidden');
+            const activeBtn = document.getElementById(`tabBtn-${tabName}`);
+            if (activeBtn) {
+                activeBtn.className = 'admin-tab-btn w-full px-4 py-3 rounded-2xl font-semibold text-xs text-left flex items-center gap-3 transition bg-brand-600 text-white';
+            }
+        }
+
+        function renderAdminMessages() {
+            const list = document.getElementById('adminMessagesList');
+            document.getElementById('adminBadgeMsgCount').innerText = appState.messages.length;
+
+            if (appState.messages.length === 0) {
+                list.innerHTML = `
+                    <div class="p-8 text-center bg-slate-800/50 rounded-3xl border border-slate-800 text-slate-400 text-xs">
+                        Belum ada pesan masuk dari pengunjung.
+                    </div>
+                `;
+                return;
+            }
+
+            list.innerHTML = appState.messages.map(m => `
+                <div class="bg-slate-800 p-5 rounded-3xl border border-slate-700/80 space-y-2">
+                    <div class="flex items-center justify-between">
+                        <h4 class="font-bold text-white text-sm">${m.name} <span class="text-xs text-slate-400">(${m.email})</span></h4>
+                        <span class="text-[10px] text-slate-500">${m.date}</span>
+                    </div>
+                    <p class="text-xs text-slate-300 bg-slate-900 p-3 rounded-2xl border border-slate-800">${m.message}</p>
+                </div>
+            `).join('');
+        }
+
+        function clearAllMessages() {
+            appState.messages = [];
+            renderAdminMessages();
+            showToast('Semua pesan berhasil dibersihkan.', 'info');
+        }
+
+        function updateAdminCredentials(e) {
+            e.preventDefault();
+            const newU = document.getElementById('newUsername').value;
+            const newP = document.getElementById('newPassword').value;
+
+            appState.auth.username = newU;
+            appState.auth.password = newP;
+            showToast('Username & password admin berhasil diperbarui!', 'success');
+        }
+
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toastMessage');
+            const toastIcon = document.getElementById('toastIcon');
+
+            toastMsg.innerText = message;
+
+            if (type === 'success') {
+                toastIcon.className = 'w-7 h-7 rounded-full bg-emerald-500/20 text-emerald-400 dark:text-emerald-600 flex items-center justify-center';
+                toastIcon.innerHTML = `<i class="fa-solid fa-check text-sm"></i>`;
+            } else if (type === 'error') {
+                toastIcon.className = 'w-7 h-7 rounded-full bg-rose-500/20 text-rose-400 flex items-center justify-center';
+                toastIcon.innerHTML = `<i class="fa-solid fa-circle-exclamation text-sm"></i>`;
+            } else {
+                toastIcon.className = 'w-7 h-7 rounded-full bg-sky-500/20 text-sky-400 flex items-center justify-center';
+                toastIcon.innerHTML = `<i class="fa-solid fa-info text-sm"></i>`;
+            }
+
+            toast.classList.remove('hidden');
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 3500);
+        }
+
+        function setupThemeToggle() {
+            const themeToggleBtn = document.getElementById('themeToggleBtn');
+            const themeIcon = document.getElementById('themeIcon');
+
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+                themeIcon.className = 'fa-solid fa-sun text-amber-400';
+            } else {
+                document.documentElement.classList.remove('dark');
+                themeIcon.className = 'fa-solid fa-moon text-slate-600';
+            }
+
+            themeToggleBtn.addEventListener('click', () => {
+                if (document.documentElement.classList.contains('dark')) {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.theme = 'light';
+                    themeIcon.className = 'fa-solid fa-moon text-slate-600';
+                } else {
+                    document.documentElement.classList.add('dark');
+                    localStorage.theme = 'dark';
+                    themeIcon.className = 'fa-solid fa-sun text-amber-400';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
