@@ -191,7 +191,7 @@
 
                 <!-- Bio Subtitle (Rich HTML Rendered) -->
                 <div class="text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed" id="displayBio">
-                    Haii! Saya <strong>Claudia Simon</strong>, seorang <strong>Arsitek Designer & Spatial Specialist</strong> yang berfokus pada perancangan hunian modern, interior fungsional, dan visualisasi 3D berestetika tinggi.
+                    Halo! Saya <strong>Claudia Simon</strong>, seorang <strong>Arsitek Designer & Spatial Specialist</strong> yang berfokus pada perancangan hunian modern, interior fungsional, dan visualisasi 3D berestetika tinggi.
                 </div>
 
                 <!-- CTA Action Buttons -->
@@ -682,7 +682,7 @@
                         <div class="flex items-center justify-between border-b border-slate-800 pb-4">
                             <div>
                                 <h2 class="text-xl font-bold text-white">Kelola Proyek & Foto Portofolio</h2>
-                                <p class="text-xs text-slate-400">Daftar proyek aktif dan form penambahan proyek baru dengan foto.</p>
+                                <p class="text-xs text-slate-400">Daftar proyek aktif dan form penambahan proyek baru dengan foto & tautan luar.</p>
                             </div>
                             <button onclick="toggleAddProjectForm()" class="px-4 py-2 rounded-2xl bg-brand-600 hover:bg-brand-500 text-white font-bold text-xs transition flex items-center gap-2">
                                 <i class="fa-solid fa-plus"></i> Tambah Proyek Baru
@@ -691,7 +691,7 @@
 
                         <!-- Form Tambah Proyek Baru -->
                         <div id="addProjectForm" class="hidden bg-slate-800 p-6 rounded-3xl border border-slate-700 space-y-4">
-                            <h3 class="text-sm font-bold text-white uppercase tracking-wider">Tambah Proyek & Foto Baru</h3>
+                            <h3 class="text-sm font-bold text-white uppercase tracking-wider">Tambah Proyek & Link Baru</h3>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
                                     <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Judul Proyek</label>
@@ -710,13 +710,30 @@
                                 <label class="block text-xs font-bold uppercase text-slate-400 mb-1">URL Foto Proyek (Gambar HD / Unsplash)</label>
                                 <input type="text" id="newProjImage" placeholder="https://images.unsplash.com/photo-..." class="w-full px-4 py-2.5 rounded-2xl bg-slate-900 border border-slate-700 text-sm text-white focus:outline-none focus:border-brand-500">
                             </div>
+
+                            <!-- Input Link Proyek (Live Demo & Source/Dokumen) -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-bold uppercase text-slate-400 mb-1">
+                                        <i class="fa-solid fa-globe text-brand-400 mr-1"></i> Link Live Demo / Website (URL)
+                                    </label>
+                                    <input type="url" id="newProjLiveUrl" placeholder="https://myproject-demo.com" class="w-full px-4 py-2.5 rounded-2xl bg-slate-900 border border-slate-700 text-sm text-white focus:outline-none focus:border-brand-500">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold uppercase text-slate-400 mb-1">
+                                        <i class="fa-brands fa-github text-slate-300 mr-1"></i> Link Source Code / Dokumen (URL)
+                                    </label>
+                                    <input type="url" id="newProjGithubUrl" placeholder="https://github.com/username/project" class="w-full px-4 py-2.5 rounded-2xl bg-slate-900 border border-slate-700 text-sm text-white focus:outline-none focus:border-brand-500">
+                                </div>
+                            </div>
+
                             <div>
                                 <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Deskripsi Ringkas</label>
                                 <textarea id="newProjDesc" rows="2" placeholder="Penjelasan singkat proyek..." class="w-full px-4 py-2.5 rounded-2xl bg-slate-900 border border-slate-700 text-sm text-white focus:outline-none focus:border-brand-500 resize-none"></textarea>
                             </div>
                             <div>
                                 <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Tech Stack (pisahkan dengan koma)</label>
-                                <input type="text" id="newProjTech" placeholder="React, Tailwind CSS, Node.js" class="w-full px-4 py-2.5 rounded-2xl bg-slate-900 border border-slate-700 text-sm text-white focus:outline-none focus:border-brand-500">
+                                <input type="text" id="newProjTech" placeholder="AutoCAD, SketchUp, V-Ray" class="w-full px-4 py-2.5 rounded-2xl bg-slate-900 border border-slate-700 text-sm text-white focus:outline-none focus:border-brand-500">
                             </div>
                             <div class="flex justify-end gap-3 pt-2">
                                 <button onclick="toggleAddProjectForm()" class="px-4 py-2 rounded-2xl bg-slate-700 text-slate-300 text-xs font-bold hover:bg-slate-600 transition">Batal</button>
@@ -811,8 +828,8 @@
                     features: ["Sistem Pengudaraan Alami (Cross Ventilation)", "Penggunaan Kayu Daur Ulang & Batu Alam", "Kolam Renang Overflow & Taman Vertikal", "Efisiensi Energi Hingga 30%"],
                     tech: ["AutoCAD", "SketchUp", "Enscape", "Revit"],
                     likes: 38,
-                    liveUrl: "#",
-                    githubUrl: "#"
+                    liveUrl: "https://example.com/tropical-villa",
+                    githubUrl: "https://github.com/example/tropical-villa"
                 },
                 {
                     id: 2,
@@ -826,7 +843,7 @@
                     features: ["Furnitur Built-in Kustom", "Pencahayaan LED Warm Ambient", "Pemilihan Material Bebas Toksik"],
                     tech: ["3ds Max", "V-Ray", "Photoshop"],
                     likes: 54,
-                    liveUrl: "#",
+                    liveUrl: "https://example.com/scandinavian-interior",
                     githubUrl: "#"
                 },
                 {
@@ -886,51 +903,6 @@
                     features: ["Meja Bar Espresso Terrazzo", "Layout Ergonomis Barista", "Pencahayaan Vintage Edison Bulb"],
                     tech: ["SketchUp", "V-Ray", "Photoshop"],
                     likes: 33,
-                    liveUrl: "#",
-                    githubUrl: "#"
-                },
-                {
-                    id: 7,
-                    title: "Luxury Penthouse Living Room",
-                    category: "interior",
-                    categoryLabel: "Interior",
-                    badgeColor: "text-amber-600 dark:text-amber-400",
-                    image: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=800&auto=format&fit=crop",
-                    description: "Interior penthouse mewah dengan ceiling tinggi, pencahayaan artistik, dan pemandangan skylight kota.",
-                    detailDescription: "Desain interior area ruang tamu utama penthouse dengan aksen marmer Calacatta, lampu gantung kustom, dan pemilihan sofa Italia premium.",
-                    features: ["Dinding Aksen Marmer Import", "Sistem Smart Home Lighting", "Aksen Kayu Walnut & Brass Detail"],
-                    tech: ["3ds Max", "V-Ray", "Corona Render"],
-                    likes: 42,
-                    liveUrl: "#",
-                    githubUrl: "#"
-                },
-                {
-                    id: 8,
-                    title: "Eco Resort Waterfront Cabin",
-                    category: "3d",
-                    categoryLabel: "3D Visualisasi",
-                    badgeColor: "text-purple-600 dark:text-purple-400",
-                    image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=800&auto=format&fit=crop",
-                    description: "Visualisasi 3D resor ekologis tepi danau berkonsep kabin kayu terintegrasi alam sekitarnya.",
-                    detailDescription: "Render 3D komplek kabin resort ramah lingkungan. Menampilkan pencahayaan sore hari (golden hour) dengan refleksi air yang realistis.",
-                    features: ["Visualisasi Realistic Water Shader", "Vegetasi 3D Skala Nyata", "Atmospheric Golden Hour Lighting"],
-                    tech: ["Unreal Engine 5", "Lumion", "Photoshop"],
-                    likes: 58,
-                    liveUrl: "#",
-                    githubUrl: "#"
-                },
-                {
-                    id: 9,
-                    title: "Modern Cultural Center & Art Gallery",
-                    category: "architecture",
-                    categoryLabel: "Arsitektur",
-                    badgeColor: "text-emerald-600 dark:text-emerald-400",
-                    image: "https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=800&auto=format&fit=crop",
-                    description: "Desain arsitektur pusat kebudayaan dan galeri seni publik berkonsep geometri parametrik.",
-                    detailDescription: "Gedung pusat seni dan kebudayaan publik dengan atrium terbuka multi-lantai yang memfasilitasi pameran lukisan dan seni instalasi.",
-                    features: ["Fasad Parametrik Perforated Metal", "Ruang Pameran Fleksibel", "Rooftop Amphitheater"],
-                    tech: ["Rhino 3D", "Grasshopper", "Revit BIM"],
-                    likes: 31,
                     liveUrl: "#",
                     githubUrl: "#"
                 }
@@ -1001,7 +973,8 @@
 
             container.innerHTML = appState.projects.map(p => {
                 const techBadges = p.tech.map(t => `<span class="px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-700/80 text-[11px] font-semibold text-slate-600 dark:text-slate-300">${t}</span>`).join('');
-                
+                const hasLiveUrl = p.liveUrl && p.liveUrl !== '#';
+
                 return `
                     <div class="project-card group bg-white dark:bg-slate-800 rounded-4xl p-5 border border-slate-200/80 dark:border-slate-700/80 shadow-sm hover:shadow-bubble transition-all flex flex-col justify-between" data-category="${p.category}" data-title="${p.title}" data-tech="${p.tech.join(' ')}">
                         <div class="space-y-4">
@@ -1031,10 +1004,17 @@
 
                         <!-- Card Action Bar -->
                         <div class="pt-6 mt-4 border-t border-slate-100 dark:border-slate-700/60 flex items-center justify-between">
-                            <button onclick="openProjectModal(${p.id})" class="text-xs font-bold text-brand-600 dark:text-brand-400 hover:text-brand-700 flex items-center gap-1.5 group/link">
-                                <span>Detail Proyek</span>
-                                <i class="fa-solid fa-arrow-right text-[10px] group-hover/link:translate-x-1 transition-transform"></i>
-                            </button>
+                            <div class="flex items-center gap-2">
+                                <button onclick="openProjectModal(${p.id})" class="text-xs font-bold text-brand-600 dark:text-brand-400 hover:text-brand-700 flex items-center gap-1.5 group/link">
+                                    <span>Detail Proyek</span>
+                                    <i class="fa-solid fa-arrow-right text-[10px] group-hover/link:translate-x-1 transition-transform"></i>
+                                </button>
+                                ${hasLiveUrl ? `
+                                <a href="${p.liveUrl}" target="_blank" rel="noopener" title="Kunjungi Link Proyek" class="w-7 h-7 rounded-full bg-slate-100 dark:bg-slate-700 hover:bg-brand-600 hover:text-white text-slate-500 dark:text-slate-300 flex items-center justify-center text-xs transition">
+                                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                </a>
+                                ` : ''}
+                            </div>
 
                             <button onclick="likeProject(this)" class="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400 hover:text-rose-500 transition px-2 py-1 rounded-full hover:bg-rose-50 dark:hover:bg-rose-950/30">
                                 <i class="fa-regular fa-heart text-sm"></i>
@@ -1151,6 +1131,9 @@
             const techListHtml = data.tech.map(t => `<span class="px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-700 text-xs font-semibold text-slate-700 dark:text-slate-300">${t}</span>`).join('');
             const featuresListHtml = (data.features || []).map(f => `<li class="flex items-center gap-2 text-xs sm:text-sm text-slate-600 dark:text-slate-300"><i class="fa-solid fa-check text-emerald-500"></i> ${f}</li>`).join('');
 
+            const liveUrlAttr = (data.liveUrl && data.liveUrl !== '#') ? `href="${data.liveUrl}" target="_blank" rel="noopener"` : `onclick="alert('Link Live Demo belum diset untuk proyek ini.'); return false;" href="#"`;
+            const githubUrlAttr = (data.githubUrl && data.githubUrl !== '#') ? `href="${data.githubUrl}" target="_blank" rel="noopener"` : `onclick="alert('Link Dokumen / Source Code belum diset untuk proyek ini.'); return false;" href="#"`;
+
             modalBody.innerHTML = `
                 <div class="space-y-4">
                     <span class="px-3 py-1 rounded-full bg-brand-50 dark:bg-brand-900/40 text-brand-600 dark:text-brand-300 text-xs font-bold uppercase">
@@ -1181,11 +1164,11 @@
                     </div>
 
                     <div class="pt-4 flex flex-col sm:flex-row gap-3">
-                        <a href="${data.liveUrl}" target="_blank" rel="noopener" class="flex-1 py-3 px-6 rounded-2xl bg-brand-600 text-white text-center font-bold text-sm hover:bg-brand-700 transition flex items-center justify-center gap-2 shadow-sm">
-                            <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i> Buka Live Demo
+                        <a ${liveUrlAttr} class="flex-1 py-3 px-6 rounded-2xl bg-brand-600 text-white text-center font-bold text-sm hover:bg-brand-700 transition flex items-center justify-center gap-2 shadow-sm">
+                            <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i> Buka Live Demo / Website
                         </a>
-                        <a href="${data.githubUrl}" target="_blank" rel="noopener" class="py-3 px-6 rounded-2xl bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 text-center font-bold text-sm hover:bg-slate-200 dark:hover:bg-slate-600 transition flex items-center justify-center gap-2">
-                            <i class="fa-brands fa-github text-sm"></i> Source Code
+                        <a ${githubUrlAttr} class="py-3 px-6 rounded-2xl bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 text-center font-bold text-sm hover:bg-slate-200 dark:hover:bg-slate-600 transition flex items-center justify-center gap-2">
+                            <i class="fa-brands fa-github text-sm"></i> Source Code / File
                         </a>
                     </div>
                 </div>
@@ -1378,7 +1361,10 @@
                         <img src="${p.image}" class="w-16 h-12 rounded-xl object-cover bg-slate-900 border border-slate-700">
                         <div>
                             <h4 class="font-bold text-white text-sm">${p.title}</h4>
-                            <span class="text-xs text-brand-400 font-medium">${p.categoryLabel}</span>
+                            <div class="flex items-center gap-2 text-xs text-slate-400">
+                                <span class="text-brand-400 font-medium">${p.categoryLabel}</span>
+                                ${p.liveUrl && p.liveUrl !== '#' ? `• <a href="${p.liveUrl}" target="_blank" class="text-sky-400 hover:underline flex items-center gap-1"><i class="fa-solid fa-link text-[10px]"></i> Live Link</a>` : ''}
+                            </div>
                         </div>
                     </div>
                     <div class="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-end">
@@ -1400,6 +1386,8 @@
             const title = document.getElementById('newProjTitle').value.trim();
             const category = document.getElementById('newProjCategory').value;
             const image = document.getElementById('newProjImage').value.trim() || 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=800&auto=format&fit=crop';
+            const liveUrl = document.getElementById('newProjLiveUrl').value.trim() || '#';
+            const githubUrl = document.getElementById('newProjGithubUrl').value.trim() || '#';
             const desc = document.getElementById('newProjDesc').value.trim();
             const techStr = document.getElementById('newProjTech').value.trim();
 
@@ -1432,8 +1420,8 @@
                 features: ["Perancangan Konsep Ruang Fungsional", "Visualisasi 3D & Pemodelan Presisi"],
                 tech: techStr ? techStr.split(',').map(t => t.trim()) : ["AutoCAD", "SketchUp"],
                 likes: 0,
-                liveUrl: "#",
-                githubUrl: "#"
+                liveUrl: liveUrl,
+                githubUrl: githubUrl
             };
 
             appState.projects.unshift(newProj);
@@ -1444,10 +1432,12 @@
             // Reset Form Inputs
             document.getElementById('newProjTitle').value = '';
             document.getElementById('newProjImage').value = '';
+            document.getElementById('newProjLiveUrl').value = '';
+            document.getElementById('newProjGithubUrl').value = '';
             document.getElementById('newProjDesc').value = '';
             document.getElementById('newProjTech').value = '';
 
-            showToast('Proyek arsitektur baru berhasil ditambahkan!', 'success');
+            showToast('Proyek arsitektur baru beserta link berhasil ditambahkan!', 'success');
         }
 
         function deleteProject(id) {
