@@ -16,6 +16,16 @@
     <!-- FontAwesome Icons CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
+    <!-- Firebase SDK Import Map -->
+    <script type="importmap">
+        {
+            "imports": {
+                "firebase/app": "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js",
+                "firebase/firestore": "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js"
+            }
+        }
+    </script>
+
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -457,20 +467,30 @@
     </div>
 
     <!-- Edit Project Modal (Admin) -->
-    <div id="editProjectModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md overflow-y-auto">
+    <div id="editProjectModal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md overflow-y-auto">
         <div class="bg-slate-800 p-6 sm:p-8 rounded-5xl border border-slate-700 max-w-2xl w-full text-slate-100 space-y-5 max-h-[90vh] overflow-y-auto relative shadow-2xl">
-            <button onclick="closeEditProjectModal()" class="absolute top-6 right-6 w-9 h-9 rounded-full bg-slate-700 text-slate-300 flex items-center justify-center hover:bg-slate-600 transition">
+            <button onclick="closeEditProjectModal()" class="absolute top-6 right-6 w-9 h-9 rounded-full bg-slate-700 text-slate-300 flex items-center justify-center hover:bg-slate-600 transition" title="Tutup Modal">
                 <i class="fa-solid fa-xmark"></i>
             </button>
 
             <div class="flex items-center gap-3 border-b border-slate-700 pb-4">
-                <div class="w-10 h-10 rounded-2xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-lg">
+                <div class="w-10 h-10 rounded-2xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-lg shadow-inner">
                     <i class="fa-solid fa-pen-to-square"></i>
                 </div>
                 <div>
                     <h3 class="text-xl font-bold text-white">Edit Detail Proyek</h3>
-                    <p class="text-xs text-slate-400">Perbarui informasi, foto, deskripsi, atau link proyek ini</p>
+                    <p class="text-xs text-slate-400">Pilih proyek dan perbarui informasi, foto, atau link proyek</p>
                 </div>
+            </div>
+
+            <!-- Project Selector Dropdown inside Edit Modal -->
+            <div class="bg-slate-900/90 p-4 rounded-2xl border border-slate-700/80 space-y-1.5">
+                <label class="block text-[11px] font-bold uppercase tracking-wider text-amber-400">
+                    <i class="fa-solid fa-layer-group mr-1"></i> Pilih Proyek yang Diedit:
+                </label>
+                <select id="editProjSelector" onchange="onEditProjSelectChange(this.value)" class="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-600 text-sm text-white focus:outline-none focus:border-amber-500 font-semibold cursor-pointer">
+                    <!-- Populated dynamically via JS -->
+                </select>
             </div>
 
             <input type="hidden" id="editProjId">
@@ -482,7 +502,7 @@
                 </div>
                 <div>
                     <label class="block text-xs font-bold uppercase text-slate-300 mb-1">Kategori</label>
-                    <select id="editProjCategory" class="w-full px-4 py-2.5 rounded-2xl bg-slate-900 border border-slate-700 text-sm text-white focus:outline-none focus:border-amber-500">
+                    <select id="editProjCategory" class="w-full px-4 py-2.5 rounded-2xl bg-slate-900 border border-slate-700 text-sm text-white focus:outline-none focus:border-amber-500 cursor-pointer">
                         <option value="architecture">Arsitektur</option>
                         <option value="interior">Interior Design</option>
                         <option value="3d">3D Visualisasi</option>
@@ -492,7 +512,10 @@
 
             <div>
                 <label class="block text-xs font-bold uppercase text-slate-300 mb-1">URL Foto Proyek</label>
-                <input type="text" id="editProjImage" class="w-full px-4 py-2.5 rounded-2xl bg-slate-900 border border-slate-700 text-sm text-white focus:outline-none focus:border-amber-500">
+                <div class="flex gap-3 items-center">
+                    <input type="text" id="editProjImage" oninput="updateEditProjImgPreview(this.value)" class="flex-1 px-4 py-2.5 rounded-2xl bg-slate-900 border border-slate-700 text-sm text-white focus:outline-none focus:border-amber-500" placeholder="https://images.unsplash.com/...">
+                    <img id="editProjImgPreview" src="" alt="Preview" class="w-14 h-11 rounded-xl object-cover bg-slate-900 border border-slate-700 flex-shrink-0">
+                </div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -540,7 +563,7 @@
     </div>
 
     <!-- Notification Toast Element -->
-    <div id="toast" class="fixed bottom-6 right-6 z-50 hidden bg-slate-900 dark:bg-white text-white dark:text-slate-900 px-6 py-4 rounded-2xl shadow-2xl text-xs sm:text-sm font-semibold flex items-center gap-3 transition">
+    <div id="toast" class="fixed bottom-6 right-6 z-[110] hidden bg-slate-900 dark:bg-white text-white dark:text-slate-900 px-6 py-4 rounded-2xl shadow-2xl text-xs sm:text-sm font-semibold flex items-center gap-3 transition">
         <div id="toastIcon" class="w-7 h-7 rounded-full bg-emerald-500/20 text-emerald-400 dark:text-emerald-600 flex items-center justify-center">
             <i class="fa-solid fa-check text-sm"></i>
         </div>
@@ -762,14 +785,19 @@
 
                     <!-- TAB 2: PROJECTS MANAGER -->
                     <div id="adminTab-projects" class="admin-tab-content hidden space-y-6">
-                        <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+                        <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800 pb-4">
                             <div>
                                 <h2 class="text-xl font-bold text-white">Kelola Proyek & Foto Portofolio</h2>
                                 <p class="text-xs text-slate-400">Daftar proyek aktif, edit proyek yang ada, atau tambah proyek baru.</p>
                             </div>
-                            <button onclick="toggleAddProjectForm()" class="px-4 py-2 rounded-2xl bg-brand-600 hover:bg-brand-500 text-white font-bold text-xs transition flex items-center gap-2">
-                                <i class="fa-solid fa-plus"></i> Tambah Proyek Baru
-                            </button>
+                            <div class="flex flex-wrap items-center gap-2">
+                                <button onclick="openEditProjectSelectorModal()" class="px-4 py-2 rounded-2xl bg-amber-500/20 text-amber-300 hover:bg-amber-500 hover:text-slate-950 border border-amber-500/40 font-bold text-xs transition flex items-center gap-2 shadow-sm" title="Pilih dan edit proyek yang sudah ada">
+                                    <i class="fa-solid fa-pen-to-square"></i> Edit Proyek
+                                </button>
+                                <button onclick="toggleAddProjectForm()" class="px-4 py-2 rounded-2xl bg-brand-600 hover:bg-brand-500 text-white font-bold text-xs transition flex items-center gap-2 shadow-sm">
+                                    <i class="fa-solid fa-plus"></i> Tambah Proyek Baru
+                                </button>
+                            </div>
                         </div>
 
                         <!-- Form Tambah Proyek Baru -->
@@ -871,7 +899,26 @@
 
     </div>
 
-    <script>
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "firebase/app";
+        import { getFirestore, doc, setDoc, onSnapshot } from "firebase/firestore";
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyBIn_kpNE252C8DefcsN0NdedQxtI9dO34",
+          authDomain: "myportofolio-a181e.firebaseapp.com",
+          projectId: "myportofolio-a181e",
+          storageBucket: "myportofolio-a181e.firebasestorage.app",
+          messagingSenderId: "571396988392",
+          appId: "1:571396988392:web:2c66ffb8a8b672e9b6d85d"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const PORTFOLIO_DOC_REF = doc(db, "portfolio", "content");
+
         const defaultState = {
             hero: {
                 headline: 'Mewujudkan Konsep Arsitektur & Ruang <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 via-rose-500 to-purple-600">Menjadi Karya Nyata.</span>',
@@ -1008,14 +1055,72 @@
 
         let appState = JSON.parse(JSON.stringify(defaultState));
 
-        window.addEventListener('DOMContentLoaded', () => {
+        // Helper untuk sinkronisasi sebagian data ke dokumen Firestore
+        async function syncDocToFirestore(partialData, successMessage) {
+            try {
+                await setDoc(PORTFOLIO_DOC_REF, partialData, { merge: true });
+                if (successMessage) {
+                    showToast(successMessage, 'success');
+                }
+            } catch (error) {
+                console.error('Error syncing to Firestore:', error);
+                showToast('Gagal menyimpan ke Firestore: ' + (error.message || error), 'error');
+            }
+        }
+
+        // Listener real-time Firestore & auto-seeding data awal jika dokumen belum ada
+        function initFirestoreSync() {
+            try {
+                onSnapshot(PORTFOLIO_DOC_REF, async (docSnap) => {
+                    if (docSnap.exists()) {
+                        const data = docSnap.data();
+                        if (data.hero) appState.hero = data.hero;
+                        if (data.projects) appState.projects = data.projects;
+                        if (data.skills) appState.skills = data.skills;
+                        if (data.experiences) appState.experiences = data.experiences;
+                        if (data.messages) appState.messages = data.messages;
+                        if (data.auth) {
+                            appState.auth.username = data.auth.username || defaultState.auth.username;
+                            appState.auth.password = data.auth.password || defaultState.auth.password;
+                        }
+                        renderAllData();
+                        if (appState.auth.isLoggedIn) {
+                            populateAdminFields();
+                        }
+                    } else {
+                        console.log('Dokumen portfolio/content belum ada di Firestore. Melakukan seeding data awal...');
+                        await setDoc(PORTFOLIO_DOC_REF, {
+                            hero: defaultState.hero,
+                            auth: { username: defaultState.auth.username, password: defaultState.auth.password },
+                            projects: defaultState.projects,
+                            skills: defaultState.skills,
+                            experiences: defaultState.experiences,
+                            messages: defaultState.messages
+                        });
+                    }
+                }, (error) => {
+                    console.warn('Firestore snapshot listener error (tetap menggunakan data lokal):', error);
+                });
+            } catch (err) {
+                console.error('Inisialisasi Firestore sync error:', err);
+            }
+        }
+
+        function initApp() {
             if (sessionStorage.getItem('adminLoggedIn') === 'true') {
                 appState.auth.isLoggedIn = true;
             }
             renderAllData();
             setupThemeToggle();
             updateAdminFloatingBtnUI();
-        });
+            initFirestoreSync();
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initApp);
+        } else {
+            initApp();
+        }
 
         function renderAllData() {
             // Render Hero & Profile Text
@@ -1099,7 +1204,7 @@
                                 ` : ''}
                             </div>
 
-                            <button onclick="likeProject(this)" class="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400 hover:text-rose-500 transition px-2 py-1 rounded-full hover:bg-rose-50 dark:hover:bg-rose-950/30">
+                            <button onclick="likeProject(this, ${p.id})" class="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400 hover:text-rose-500 transition px-2 py-1 rounded-full hover:bg-rose-50 dark:hover:bg-rose-950/30">
                                 <i class="fa-regular fa-heart text-sm"></i>
                                 <span>${p.likes}</span>
                             </button>
@@ -1253,6 +1358,11 @@
                         <a ${githubUrlAttr} class="py-3 px-6 rounded-2xl bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 text-center font-bold text-sm hover:bg-slate-200 dark:hover:bg-slate-600 transition flex items-center justify-center gap-2">
                             <i class="fa-brands fa-github text-sm"></i> Source Code / File
                         </a>
+                        ${appState.auth.isLoggedIn ? `
+                        <button onclick="closeProjectModal(); openEditProjectModal(${data.id});" class="py-3 px-5 rounded-2xl bg-amber-500/20 text-amber-600 dark:text-amber-300 hover:bg-amber-500 hover:text-slate-950 font-bold text-sm transition flex items-center justify-center gap-2 border border-amber-500/30 shadow-sm" title="Edit Proyek Ini">
+                            <i class="fa-solid fa-pen-to-square"></i> Edit Proyek
+                        </button>
+                        ` : ''}
                     </div>
                 </div>
             `;
@@ -1266,7 +1376,7 @@
             document.body.style.overflow = 'auto';
         }
 
-        function likeProject(btn) {
+        async function likeProject(btn, id) {
             const icon = btn.querySelector('i');
             const countSpan = btn.querySelector('span');
             let currentCount = parseInt(countSpan.innerText);
@@ -1274,12 +1384,22 @@
             if (icon.classList.contains('fa-regular')) {
                 icon.className = 'fa-solid fa-heart text-rose-500 text-sm';
                 btn.classList.add('text-rose-500');
-                countSpan.innerText = currentCount + 1;
+                currentCount += 1;
+                countSpan.innerText = currentCount;
                 showToast('Terima kasih telah menyukai project ini!', 'success');
             } else {
                 icon.className = 'fa-regular fa-heart text-sm';
                 btn.classList.remove('text-rose-500');
-                countSpan.innerText = currentCount - 1;
+                currentCount = Math.max(0, currentCount - 1);
+                countSpan.innerText = currentCount;
+            }
+
+            if (id) {
+                const p = appState.projects.find(item => item.id === id);
+                if (p) {
+                    p.likes = currentCount;
+                    await syncDocToFirestore({ projects: appState.projects });
+                }
             }
         }
 
@@ -1301,7 +1421,7 @@
             }, 3000);
         }
 
-        function handleFormSubmit(e) {
+        async function handleFormSubmit(e) {
             e.preventDefault();
             const name = document.getElementById('formName').value;
             const email = document.getElementById('formEmail').value;
@@ -1315,7 +1435,8 @@
             });
 
             document.getElementById('contactForm').reset();
-            showToast('Terima kasih! Pesan Anda telah terkirim.', 'success');
+            renderAdminMessages();
+            await syncDocToFirestore({ messages: appState.messages }, 'Terima kasih! Pesan Anda telah terkirim.');
         }
 
         function openAdminModal() {
@@ -1416,7 +1537,7 @@
             range.insertNode(span);
         }
 
-        function saveHeroChanges() {
+        async function saveHeroChanges() {
             appState.hero.headline = document.getElementById('headlineEditor').innerHTML;
             appState.hero.bio = document.getElementById('bioEditor').innerHTML;
             appState.hero.name = document.getElementById('adminInputName').value;
@@ -1430,7 +1551,7 @@
             appState.hero.socials.dribbble = document.getElementById('adminInputDribbble').value;
 
             renderAllData();
-            showToast('Profile, Informasi Kontak & Sosial Media berhasil diperbarui!', 'success');
+            await syncDocToFirestore({ hero: appState.hero }, 'Profile, Kontak & Medsos tersimpan di Firestore!');
         }
 
         function renderAdminProjectsList() {
@@ -1451,10 +1572,10 @@
                     </div>
                     <div class="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-end">
                         <span class="text-xs text-slate-400 mr-2"><i class="fa-solid fa-heart text-rose-500"></i> ${p.likes}</span>
-                        <button onclick="openEditProjectModal(${p.id})" class="px-3 py-1.5 rounded-xl bg-amber-500/20 text-amber-300 hover:bg-amber-500 hover:text-white text-xs font-bold transition flex items-center gap-1">
+                        <button onclick="openEditProjectModal(${p.id})" class="px-3.5 py-2 rounded-xl bg-amber-500/20 text-amber-300 hover:bg-amber-500 hover:text-slate-950 border border-amber-500/30 text-xs font-bold transition flex items-center gap-1.5 shadow-sm" title="Edit Proyek Ini">
                             <i class="fa-solid fa-pen-to-square"></i> Edit
                         </button>
-                        <button onclick="deleteProject(${p.id})" class="px-3 py-1.5 rounded-xl bg-rose-500/20 text-rose-300 hover:bg-rose-500 hover:text-white text-xs font-bold transition flex items-center gap-1">
+                        <button onclick="deleteProject(${p.id})" class="px-3.5 py-2 rounded-xl bg-rose-500/20 text-rose-300 hover:bg-rose-500 hover:text-white border border-rose-500/30 text-xs font-bold transition flex items-center gap-1.5 shadow-sm" title="Hapus Proyek Ini">
                             <i class="fa-solid fa-trash-can"></i> Hapus
                         </button>
                     </div>
@@ -1467,7 +1588,7 @@
             form.classList.toggle('hidden');
         }
 
-        function addNewProject() {
+        async function addNewProject() {
             const title = document.getElementById('newProjTitle').value.trim();
             const category = document.getElementById('newProjCategory').value;
             const image = document.getElementById('newProjImage').value.trim() || 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=800&auto=format&fit=crop';
@@ -1522,35 +1643,95 @@
             document.getElementById('newProjDesc').value = '';
             document.getElementById('newProjTech').value = '';
 
-            showToast('Proyek arsitektur baru berhasil ditambahkan!', 'success');
+            await syncDocToFirestore({ projects: appState.projects }, 'Proyek arsitektur baru berhasil ditambahkan ke Firestore!');
         }
 
-        function openEditProjectModal(id) {
-            const p = appState.projects.find(item => item.id === id);
+        function populateEditProjectFields(p) {
             if (!p) return;
-
             document.getElementById('editProjId').value = p.id;
-            document.getElementById('editProjTitle').value = p.title;
-            document.getElementById('editProjCategory').value = p.category;
-            document.getElementById('editProjImage').value = p.image;
-            document.getElementById('editProjLiveUrl').value = p.liveUrl || '';
-            document.getElementById('editProjGithubUrl').value = p.githubUrl || '';
+            document.getElementById('editProjTitle').value = p.title || '';
+            document.getElementById('editProjCategory').value = p.category || 'architecture';
+            document.getElementById('editProjImage').value = p.image || '';
+            document.getElementById('editProjLiveUrl').value = (p.liveUrl && p.liveUrl !== '#') ? p.liveUrl : '';
+            document.getElementById('editProjGithubUrl').value = (p.githubUrl && p.githubUrl !== '#') ? p.githubUrl : '';
             document.getElementById('editProjDesc').value = p.description || '';
             document.getElementById('editProjDetailDesc').value = p.detailDescription || p.description || '';
             document.getElementById('editProjFeatures').value = (p.features || []).join(', ');
             document.getElementById('editProjTech').value = (p.tech || []).join(', ');
 
-            document.getElementById('editProjectModal').classList.remove('hidden');
+            const preview = document.getElementById('editProjImgPreview');
+            if (preview) {
+                preview.src = p.image || '';
+                preview.alt = p.title || '';
+            }
+        }
+
+        function populateEditProjSelector(selectedId) {
+            const selector = document.getElementById('editProjSelector');
+            if (!selector) return;
+
+            selector.innerHTML = appState.projects.map(p => `
+                <option value="${p.id}" ${p.id == selectedId ? 'selected' : ''}>
+                    ${p.title} (${p.categoryLabel || p.category})
+                </option>
+            `).join('');
+        }
+
+        function onEditProjSelectChange(id) {
+            const p = appState.projects.find(item => item.id == id);
+            if (p) {
+                populateEditProjectFields(p);
+            }
+        }
+
+        function updateEditProjImgPreview(url) {
+            const preview = document.getElementById('editProjImgPreview');
+            if (preview) {
+                preview.src = url || '';
+            }
+        }
+
+        function openEditProjectModal(id) {
+            if (!appState.projects || appState.projects.length === 0) {
+                showToast('Belum ada proyek yang terdaftar untuk diedit.', 'info');
+                return;
+            }
+
+            const targetId = (id !== undefined && id !== null) ? id : appState.projects[0].id;
+            const p = appState.projects.find(item => item.id == targetId) || appState.projects[0];
+            if (!p) return;
+
+            populateEditProjSelector(p.id);
+            populateEditProjectFields(p);
+
+            const modal = document.getElementById('editProjectModal');
+            if (modal) {
+                modal.classList.remove('hidden');
+            }
+        }
+
+        function openEditProjectSelectorModal() {
+            if (!appState.projects || appState.projects.length === 0) {
+                showToast('Belum ada proyek untuk diedit! Tambahkan proyek baru terlebih dahulu.', 'error');
+                return;
+            }
+            openEditProjectModal(appState.projects[0].id);
         }
 
         function closeEditProjectModal() {
-            document.getElementById('editProjectModal').classList.add('hidden');
+            const modal = document.getElementById('editProjectModal');
+            if (modal) {
+                modal.classList.add('hidden');
+            }
         }
 
-        function saveProjectEdit() {
-            const id = parseInt(document.getElementById('editProjId').value);
-            const pIndex = appState.projects.findIndex(item => item.id === id);
-            if (pIndex === -1) return;
+        async function saveProjectEdit() {
+            const idVal = document.getElementById('editProjId').value;
+            const pIndex = appState.projects.findIndex(item => item.id == idVal);
+            if (pIndex === -1) {
+                showToast('Proyek tidak ditemukan!', 'error');
+                return;
+            }
 
             const title = document.getElementById('editProjTitle').value.trim();
             const category = document.getElementById('editProjCategory').value;
@@ -1569,7 +1750,7 @@
 
             const categoryLabels = {
                 architecture: 'Arsitektur',
-                interior: 'Interior',
+                interior: 'Interior Design',
                 '3d': '3D Visualisasi'
             };
 
@@ -1588,22 +1769,22 @@
             appState.projects[pIndex].githubUrl = githubUrl || '#';
             appState.projects[pIndex].description = desc;
             appState.projects[pIndex].detailDescription = detailDesc || desc;
-            appState.projects[pIndex].features = featuresStr ? featuresStr.split(',').map(f => f.trim()) : appState.projects[pIndex].features;
-            appState.projects[pIndex].tech = techStr ? techStr.split(',').map(t => t.trim()) : appState.projects[pIndex].tech;
+            appState.projects[pIndex].features = featuresStr ? featuresStr.split(',').map(f => f.trim()).filter(Boolean) : appState.projects[pIndex].features;
+            appState.projects[pIndex].tech = techStr ? techStr.split(',').map(t => t.trim()).filter(Boolean) : appState.projects[pIndex].tech;
 
             renderProjectsGrid();
             renderAdminProjectsList();
             closeEditProjectModal();
 
-            showToast('Proyek berhasil diperbarui!', 'success');
+            await syncDocToFirestore({ projects: appState.projects }, 'Proyek berhasil diperbarui di Firestore!');
         }
 
-        function deleteProject(id) {
+        async function deleteProject(id) {
             if (confirm('Apakah Anda yakin ingin menghapus proyek ini?')) {
                 appState.projects = appState.projects.filter(p => p.id !== id);
                 renderProjectsGrid();
                 renderAdminProjectsList();
-                showToast('Proyek berhasil dihapus.', 'info');
+                await syncDocToFirestore({ projects: appState.projects }, 'Proyek berhasil dihapus dari Firestore.');
             }
         }
 
@@ -1644,20 +1825,20 @@
             `).join('');
         }
 
-        function clearAllMessages() {
+        async function clearAllMessages() {
             appState.messages = [];
             renderAdminMessages();
-            showToast('Semua pesan berhasil dibersihkan.', 'info');
+            await syncDocToFirestore({ messages: [] }, 'Semua pesan berhasil dibersihkan dari Firestore.');
         }
 
-        function updateAdminCredentials(e) {
+        async function updateAdminCredentials(e) {
             e.preventDefault();
             const newU = document.getElementById('newUsername').value;
             const newP = document.getElementById('newPassword').value;
 
             appState.auth.username = newU;
             appState.auth.password = newP;
-            showToast('Username & password admin berhasil diperbarui!', 'success');
+            await syncDocToFirestore({ auth: { username: newU, password: newP } }, 'Username & password admin berhasil diperbarui di Firestore!');
         }
 
         function showToast(message, type = 'success') {
@@ -1708,6 +1889,39 @@
                 }
             });
         }
+
+        // Expose functions to window for HTML inline event handlers (onclick, onsubmit, etc.)
+        Object.assign(window, {
+            openAdminModal,
+            closeAdminModal,
+            handleAdminLogin,
+            logoutAdmin,
+            saveHeroChanges,
+            renderAdminProjectsList,
+            toggleAddProjectForm,
+            addNewProject,
+            openEditProjectModal,
+            openEditProjectSelectorModal,
+            closeEditProjectModal,
+            onEditProjSelectChange,
+            updateEditProjImgPreview,
+            saveProjectEdit,
+            deleteProject,
+            openProjectModal,
+            closeProjectModal,
+            likeProject,
+            copyEmailToClipboard,
+            handleFormSubmit,
+            switchAdminTab,
+            renderAdminMessages,
+            clearAllMessages,
+            updateAdminCredentials,
+            execRteCommand,
+            applyRteGradient,
+            filterProjects,
+            searchProjects,
+            toggleMobileMenu
+        });
     </script>
 </body>
 </html>
